@@ -3,6 +3,13 @@ usage: python Chat_server.py
 """
 import socket, select, sys
 
+# List of socket descriptors
+CONNECTION_LIST = []
+host = '127.0.0.1'
+#host = '192.168.1.105'
+RECV_BUFFER = 2048
+port = 9999
+
 def broadcast_data (sock, message):
 	for socket in CONNECTION_LIST:
 		if socket != server and socket != sock :
@@ -11,17 +18,8 @@ def broadcast_data (sock, message):
 			except :
 				socket.close()
 				CONNECTION_LIST.remove(socket)
-
-if __name__ == "__main__":
-
-	# List of socket descriptors
-	CONNECTION_LIST = []
-
-	host = '127.0.0.1'
-	#host = '192.168.1.105'
-	RECV_BUFFER = 2048
-	port = 9999
-
+				
+def main():
 	#create a TCP socket
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -51,7 +49,6 @@ if __name__ == "__main__":
 				print "Client (%s, %s) connected" % addr
 
 				broadcast_data(sockfd, "[%s:%s] entered room\n" % addr)
-
 				
 			else:
 				# IF data was received from client, broadcast it to all others
@@ -68,4 +65,10 @@ if __name__ == "__main__":
 					continue
 
 	server.close()
+	
+if __name__ == "__main__":
+	main()
+
+
+
 
