@@ -2,7 +2,6 @@
 
 import socket, string, sys, select
 
-#host = "192.168.1.105"
 host = "127.0.0.1" #testing for local host
 port = 9999
 
