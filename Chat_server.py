@@ -5,8 +5,6 @@ import socket, select, sys
 
 # List of socket descriptors
 CONNECTION_LIST = []
-host = '127.0.0.1'
-#host = '192.168.1.105'
 RECV_BUFFER = 2048
 port = 9999
 
