@@ -1,0 +1,126 @@
+Script started on 2020-03-02 15:22:05-06:00
+./health.sh: line 18: stackrc: No such file or directory
+salt *Controller* cmd.run clustercheck
+./health.sh: line 21: salt: command not found
+
+ df -kh
+Filesystem              Size  Used Avail Use% Mounted on
+devtmpfs                1.9G     0  1.9G   0% /dev
+tmpfs                   1.9G     0  1.9G   0% /dev/shm
+tmpfs                   1.9G   10M  1.9G   1% /run
+tmpfs                   1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/mapper/cl_jt-root   49G   11G   39G  22% /
+/dev/mapper/cl_jt-home   24G  213M   24G   1% /home
+/dev/sda1               976M  257M  653M  29% /boot
+tmpfs                   376M  1.2M  375M   1% /run/user/42
+tmpfs                   376M  3.5M  373M   1% /run/user/0
+/dev/sr0                7.1G  7.1G     0 100% /run/media/root/CentOS-8-1-1911-x86_64-dvd
+
+ salt * cmd.run ceph health
+./health.sh: line 27: salt: command not found
+
+ heat stack-list
+./health.sh: line 30: heat: command not found
+
+ ironic node-list
+./health.sh: line 33: ironic: command not found
+
+ nova list
+./health.sh: line 36: nova: command not found
+
+ nova service-list
+./health.sh: line 39: nova: command not found
+
+ ntpstat
+./health.sh: line 42: ntpstat: command not found
+
+ ntpq -p
+./health.sh: line 45: ntpq: command not found
+
+ salt *Controller* cmd.run ntpq -p
+./health.sh: line 48: salt: command not found
+
+ salt * cmd.run df -kh
+./health.sh: line 51: salt: command not found
+
+ salt *Controller* cmd.run ntpstat
+./health.sh: line 54: salt: command not found
+
+ salt '*' cmd.run 'ntpstat'
+./health.sh: line 57: salt: command not found
+
+ salt * cmd.run hwclock --systohc
+./health.sh: line 60: salt: command not found
+./health.sh: line 62: overcloudrc: No such file or directory
+
+ nova list --all --fields=host,name,status
+./health.sh: line 65: nova: command not found
+
+ salt Controller-0 cmd.run sudo ceph osd tree
+./health.sh: line 68: salt: command not found
+
+ nova service-list
+./health.sh: line 71: nova: command not found
+
+ cinder service-list
+./health.sh: line 74: cinder: command not found
+
+ heat service-list |grep controller-0 |grep up |wc -l
+./health.sh: line 77: heat: command not found
+0
+
+ heat service-list
+./health.sh: line 80: heat: command not found
+
+ salt * cmd.run free -h
+./health.sh: line 83: salt: command not found
+
+ salt * cmd.run mpstat
+./health.sh: line 86: salt: command not found
+
+ neutron agent-list
+./health.sh: line 89: neutron: command not found
+
+ sudo systemctl status ntpd
+[?1h=Unit ntpd.service could not be found.[m
+[K[?1l>
+ salt Controller* cmd.run sudo pcs status
+./health.sh: line 95: salt: command not found
+
+ salt '*' cmd.run 'sudo systemctl --failed | grep -i fail'
+./health.sh: line 98: salt: command not found
+
+ Enter ssh -i <ssh key> cbam@<cbam VIP>
+
+
+ systemctl status cbam-reconfigure.service
+[?1h=Unit cbam-reconfigure.service could not be found.[m
+[K[?1l>
+ DNS Verification
+Server:		10.158.53.11
+Address:	10.158.53.11#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 172.217.18.14
+Name:	google.com
+Address: 2a00:1450:4001:80b::200e
+
+
+ NTP Verification
+/bin/bash: line 8: ntpq: command not found
+
+ systemctl status cbam-operability-distribution.service
+[?1h=Unit cbam-operability-distribution.service could not be found.[m
+[K[?1l>
+ sudo systemctl status cbam-component-catalog.service
+[?1h=Unit cbam-component-catalog.service could not be found.[m
+[K[?1l>
+ sudo systemctl status cbam-component-alma.service
+
+[?1h=Unit cbam-component-alma.service could not be found.[m
+[K[?1l>
+ sudo systemctl status cbam-scheduler.service
+[?1h=Unit cbam-scheduler.service could not be found.[m
+[K[?1l>
+Script done on 2020-03-02 15:22:19-06:00

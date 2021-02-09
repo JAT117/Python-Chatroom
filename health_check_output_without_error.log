@@ -1,0 +1,1971 @@
+[stack@undercloud (stackrcLAB) ~]$ 
+[stack@undercloud (stackrcLAB) ~]$ ./fn.sh
+salt *Controller* cmd.run clustercheck
+Controller-2:
+    HTTP/1.1 200 OK
+    Content-Type: text/plain
+    Connection: close
+    Content-Length: 32
+    
+    Galera cluster node is synced.
+Controller-1:
+    HTTP/1.1 200 OK
+    Content-Type: text/plain
+    Connection: close
+    Content-Length: 32
+    
+    Galera cluster node is synced.
+Controller-0:
+    HTTP/1.1 200 OK
+    Content-Type: text/plain
+    Connection: close
+    Content-Length: 32
+    
+    Galera cluster node is synced.
+
+ df -kh
+Filesystem                   Size  Used Avail Use% Mounted on
+/dev/vda3                     20G   12G  8.4G  57% /
+devtmpfs                      32G     0   32G   0% /dev
+tmpfs                         32G  4.0K   32G   1% /dev/shm
+tmpfs                         32G  692K   32G   1% /run
+tmpfs                         32G     0   32G   0% /sys/fs/cgroup
+/dev/vda10                   208G   19G  190G   9% /var
+/dev/vda8                    9.8G   34M  9.8G   1% /tmp
+/dev/vda5                     20G  6.0G   14G  31% /home
+/dev/vda6                     20G  3.4G   17G  18% /var/log
+/dev/vda7                     20G   33M   20G   1% /var/log/auditd
+/dev/vda2                    497M  148M  349M  30% /boot
+172.31.255.254:/root/backup  420G  360G   61G  86% /mnt/backup
+tmpfs                        6.3G     0  6.3G   0% /run/user/1000
+
+ salt * cmd.run ceph health
+Controller-1:
+    HEALTH_OK
+Controller-0:
+    HEALTH_OK
+Controller-2:
+    HEALTH_OK
+Storage-3:
+    HEALTH_OK
+Storage-5:
+    HEALTH_OK
+OvsCompute-0:
+    HEALTH_OK
+Storage-4:
+    HEALTH_OK
+OvsCompute-9:
+    HEALTH_OK
+OvsCompute-2:
+    HEALTH_OK
+OvsCompute-3:
+    HEALTH_OK
+OvsCompute-4:
+    HEALTH_OK
+OvsCompute-6:
+    HEALTH_OK
+OvsCompute-5:
+    HEALTH_OK
+OvsCompute-7:
+    HEALTH_OK
+OvsCompute-8:
+    HEALTH_OK
+TripleNicSriov1GPerformanceCompute-1:
+    HEALTH_OK
+TripleNicSriov1GPerformanceCompute-2:
+    HEALTH_OK
+TripleNicSriovCMMPerformanceCompute-7:
+    HEALTH_OK
+TripleNicSriovCMMPerformanceCompute-5:
+    HEALTH_OK
+TripleNicSriov1GPerformanceCompute-0:
+    HEALTH_OK
+TripleNicSriovCMMPerformanceCompute-4:
+    HEALTH_OK
+TripleNicSriovPerformanceCompute-1:
+    HEALTH_OK
+TripleNicSriovCMMPerformanceCompute-6:
+    HEALTH_OK
+TripleNicSriov1GPerformanceCompute-3:
+    HEALTH_OK
+TripleNicSriovPerformanceCompute-0:
+    HEALTH_OK
+OvsCompute-1:
+    HEALTH_OK
+
+ heat stack-list
+WARNING (shell) "heat stack-list" is deprecated, please use "openstack stack list" instead
++--------------------------------------+------------+-----------------+----------------------+----------------------+
+| id                                   | stack_name | stack_status    | creation_time        | updated_time         |
++--------------------------------------+------------+-----------------+----------------------+----------------------+
+| 0e5cdbb1-a4a1-4e22-8ebf-25cdf25fa985 | overcloud  | UPDATE_COMPLETE | 2018-09-18T04:55:22Z | 2020-02-13T01:55:55Z |
++--------------------------------------+------------+-----------------+----------------------+----------------------+
+
+ ironic node-list
++--------------------------------------+-----------+--------------------------------------+-------------+--------------------+-------------+
+| UUID                                 | Name      | Instance UUID                        | Power State | Provisioning State | Maintenance |
++--------------------------------------+-----------+--------------------------------------+-------------+--------------------+-------------+
+| 09ac73be-b61a-4fba-a6a2-7643b2554c7d | server-1  | efdb1d6b-95b5-47ba-b00b-08424d19db29 | power on    | active             | False       |
+| eedfb4f6-57fd-41a0-ab3d-c85564a7ca8d | server-2  | 69b84b39-bee6-402f-8531-2cf5841391d9 | power on    | active             | False       |
+| e38ac8aa-ba45-4902-b70a-1232c81b30db | server-3  | cd22c21a-cc2e-4e39-9584-ae0ab99e6cf6 | power on    | active             | False       |
+| 8ee201c4-ba23-4322-b968-e80e2319e03c | server-4  | ef598812-7875-4194-907a-a0cab1c1ecd4 | power on    | active             | False       |
+| 3e20cc18-3aa3-47f4-acf4-13b29f74e2f5 | server-5  | 82537689-3933-4d9f-ac7e-a80dff84c055 | power on    | active             | False       |
+| c5ff6c67-3c54-4fe9-b9b4-1096e525592e | server-6  | 24a9309c-74d6-41d9-b1f5-6b8fe71c39b0 | power on    | active             | False       |
+| b8b1f13e-3ee2-4b36-bb25-5782e752026d | server-7  | 1a4ee5b4-ba6d-42c7-a772-ab2a8f46796f | power on    | active             | False       |
+| 986cc856-fe26-4d77-b4de-95f3eebcbf16 | server-8  | 2d8a20af-f4e8-4c70-b8b6-e81f2937e696 | power on    | active             | False       |
+| a803acf6-5f44-471a-85e9-30cb0c7b454f | server-9  | 10427953-2e8c-4258-92fa-d88e58262457 | power on    | active             | False       |
+| c1cf5db4-c07c-40b1-be66-30be4cc9a2a6 | server-10 | 9c8600db-734c-46ce-aa30-7fccc9d2cf59 | power on    | active             | False       |
+| ffc709ed-0461-4b41-b410-9fc0ff9c8453 | server-11 | 995b768e-84af-4847-95c9-709cbee6d5e8 | power on    | active             | False       |
+| 221d6631-4e80-41ee-85ce-21a1eee74abb | server-12 | 662f8f4c-871e-410b-9e6a-f5d9c6045789 | power on    | active             | False       |
+| d75f0e6f-ee00-433e-8bcf-b343d74cbcc1 | server-13 | 5b0b0cbd-9d35-49a7-bac0-bc0c6734b4b8 | power on    | active             | False       |
+| d8bdf947-b49b-4df1-b4da-02280d77a50d | server-14 | ea26b375-2a38-4684-94ee-b27aba6e2e42 | power on    | active             | False       |
+| 8d0026d2-a42f-4248-a6e4-1b4f5efe92ca | server-15 | 2c46e26d-66bc-4426-960b-93b57adf86c0 | power on    | active             | False       |
+| cc76c5ed-11b8-4d40-9465-1328e19571fe | server-16 | b4a417b1-5f55-4e6f-b7ba-a86db9795599 | power on    | active             | False       |
+| f3eec4ee-95aa-42fa-9c3f-462fc33416f8 | server-17 | 40c6966e-705f-4fc4-9b2f-96364750da97 | power on    | active             | False       |
+| 04fe7ab3-a8fc-4a79-b15e-fbce215162d6 | server-18 | 9d6d0443-d189-45fe-bb9a-190f65944b66 | power on    | active             | False       |
+| ad52c15d-5e9a-460b-a8f4-faccc3d0d28b | server-19 | 5c40372b-6661-45ee-8d03-9c88e9c6f0b3 | power on    | active             | False       |
+| b1a9b8f9-1bf4-4b2c-a678-5846a0ab1caa | server-20 | e9edaee6-d7a0-446e-bb02-0f0c8263e737 | power on    | active             | False       |
+| 25c58f00-9c43-4daa-b5e3-a5fa30f4be08 | server-22 | 13caac3f-a788-4c3b-881e-5fdcbd8fa570 | power on    | active             | False       |
+| 37e55e28-ebad-4585-b8eb-5c00efd93592 | server-21 | d1075708-5aa2-459d-9018-e7994c26d134 | power on    | active             | False       |
+| d5761caf-5d48-4780-ac09-a44a5ac4d2eb | server-23 | d2b664c4-edbb-42cb-bfd7-2f84600116a5 | power on    | active             | False       |
+| 41f71c74-ead1-4e4f-bb4b-9ac6277538b4 | server-24 | 05ab47f8-90e0-4933-b04b-154461744ca8 | power on    | active             | False       |
+| 5b770f82-35e7-4e24-8364-b22de195f38c | server-25 | 1fd6cc65-558a-4d86-8ebd-00cb8edf3197 | power on    | active             | False       |
+| dcc68854-994a-4b46-9c18-ed8533c6fccc | server-26 | 1c09e95a-9af4-478e-829e-f58e1f9a2572 | power on    | active             | False       |
++--------------------------------------+-----------+--------------------------------------+-------------+--------------------+-------------+
+
+ nova list
++--------------------------------------+-------------------------------------------------+--------+------------+-------------+------------------------+
+| ID                                   | Name                                            | Status | Task State | Power State | Networks               |
++--------------------------------------+-------------------------------------------------+--------+------------+-------------+------------------------+
+| 662f8f4c-871e-410b-9e6a-f5d9c6045789 | overcloud-Controller-0                          | ACTIVE | -          | Running     | ctlplane=172.31.255.18 |
+| 995b768e-84af-4847-95c9-709cbee6d5e8 | overcloud-Controller-1                          | ACTIVE | -          | Running     | ctlplane=172.31.255.20 |
+| 5b0b0cbd-9d35-49a7-bac0-bc0c6734b4b8 | overcloud-Controller-2                          | ACTIVE | -          | Running     | ctlplane=172.31.255.13 |
+| cd22c21a-cc2e-4e39-9584-ae0ab99e6cf6 | overcloud-OvsCompute-0                          | ACTIVE | -          | Running     | ctlplane=172.31.255.8  |
+| efdb1d6b-95b5-47ba-b00b-08424d19db29 | overcloud-OvsCompute-1                          | ACTIVE | -          | Running     | ctlplane=172.31.255.15 |
+| 69b84b39-bee6-402f-8531-2cf5841391d9 | overcloud-OvsCompute-2                          | ACTIVE | -          | Running     | ctlplane=172.31.255.12 |
+| ef598812-7875-4194-907a-a0cab1c1ecd4 | overcloud-OvsCompute-3                          | ACTIVE | -          | Running     | ctlplane=172.31.255.14 |
+| 82537689-3933-4d9f-ac7e-a80dff84c055 | overcloud-OvsCompute-4                          | ACTIVE | -          | Running     | ctlplane=172.31.255.6  |
+| 2d8a20af-f4e8-4c70-b8b6-e81f2937e696 | overcloud-OvsCompute-5                          | ACTIVE | -          | Running     | ctlplane=172.31.255.27 |
+| 1a4ee5b4-ba6d-42c7-a772-ab2a8f46796f | overcloud-OvsCompute-6                          | ACTIVE | -          | Running     | ctlplane=172.31.255.21 |
+| 9c8600db-734c-46ce-aa30-7fccc9d2cf59 | overcloud-OvsCompute-7                          | ACTIVE | -          | Running     | ctlplane=172.31.255.11 |
+| 10427953-2e8c-4258-92fa-d88e58262457 | overcloud-OvsCompute-8                          | ACTIVE | -          | Running     | ctlplane=172.31.255.24 |
+| 24a9309c-74d6-41d9-b1f5-6b8fe71c39b0 | overcloud-OvsCompute-9                          | ACTIVE | -          | Running     | ctlplane=172.31.255.7  |
+| e9edaee6-d7a0-446e-bb02-0f0c8263e737 | overcloud-Storage-3                             | ACTIVE | -          | Running     | ctlplane=172.31.255.37 |
+| 13caac3f-a788-4c3b-881e-5fdcbd8fa570 | overcloud-Storage-4                             | ACTIVE | -          | Running     | ctlplane=172.31.255.22 |
+| d1075708-5aa2-459d-9018-e7994c26d134 | overcloud-Storage-5                             | ACTIVE | -          | Running     | ctlplane=172.31.255.30 |
+| b4a417b1-5f55-4e6f-b7ba-a86db9795599 | overcloud-TripleNicSriov1GPerformanceCompute-0  | ACTIVE | -          | Running     | ctlplane=172.31.255.35 |
+| 2c46e26d-66bc-4426-960b-93b57adf86c0 | overcloud-TripleNicSriov1GPerformanceCompute-1  | ACTIVE | -          | Running     | ctlplane=172.31.255.23 |
+| 40c6966e-705f-4fc4-9b2f-96364750da97 | overcloud-TripleNicSriov1GPerformanceCompute-2  | ACTIVE | -          | Running     | ctlplane=172.31.255.26 |
+| ea26b375-2a38-4684-94ee-b27aba6e2e42 | overcloud-TripleNicSriov1GPerformanceCompute-3  | ACTIVE | -          | Running     | ctlplane=172.31.255.19 |
+| 1fd6cc65-558a-4d86-8ebd-00cb8edf3197 | overcloud-TripleNicSriovCMMPerformanceCompute-4 | ACTIVE | -          | Running     | ctlplane=172.31.255.25 |
+| 05ab47f8-90e0-4933-b04b-154461744ca8 | overcloud-TripleNicSriovCMMPerformanceCompute-5 | ACTIVE | -          | Running     | ctlplane=172.31.255.28 |
+| 1c09e95a-9af4-478e-829e-f58e1f9a2572 | overcloud-TripleNicSriovCMMPerformanceCompute-6 | ACTIVE | -          | Running     | ctlplane=172.31.255.33 |
+| d2b664c4-edbb-42cb-bfd7-2f84600116a5 | overcloud-TripleNicSriovCMMPerformanceCompute-7 | ACTIVE | -          | Running     | ctlplane=172.31.255.36 |
+| 5c40372b-6661-45ee-8d03-9c88e9c6f0b3 | overcloud-TripleNicSriovPerformanceCompute-0    | ACTIVE | -          | Running     | ctlplane=172.31.255.10 |
+| 9d6d0443-d189-45fe-bb9a-190f65944b66 | overcloud-TripleNicSriovPerformanceCompute-1    | ACTIVE | -          | Running     | ctlplane=172.31.255.4  |
++--------------------------------------+-------------------------------------------------+--------+------------+-------------+------------------------+
+
+ nova service-list
++----+----------------+------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary         | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+----------------+------------+----------+---------+-------+----------------------------+-----------------+
+| 1  | nova-cert      | undercloud | internal | enabled | up    | 2020-02-26T20:07:20.000000 | -               |
+| 4  | nova-scheduler | undercloud | internal | enabled | up    | 2020-02-26T20:07:16.000000 | -               |
+| 5  | nova-conductor | undercloud | internal | enabled | up    | 2020-02-26T20:07:15.000000 | -               |
+| 8  | nova-compute   | undercloud | nova     | enabled | up    | 2020-02-26T20:07:12.000000 | -               |
++----+----------------+------------+----------+---------+-------+----------------------------+-----------------+
+
+ ntpstat
+synchronised to NTP server (10.0.253.37) at stratum 2 
+   time correct to within 37 ms
+   polling server every 1024 s
+
+ ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*10.0.253.37     .GPS.            1 u  274 1024  377   23.557    3.385   5.210
++10.0.253.101    .GPS.            1 u  652 1024  377   81.665   -0.569   2.585
+
+ salt *Controller* cmd.run ntpq -p
+Controller-0:
+         remote           refid      st t when poll reach   delay   offset  jitter
+    ==============================================================================
+    *10.0.253.37     .GPS.            1 u  641 1024  377   24.901    2.252   5.636
+    +10.0.253.101    .GPS.            1 u  801 1024  377   78.691    1.327   5.025
+Controller-1:
+         remote           refid      st t when poll reach   delay   offset  jitter
+    ==============================================================================
+    *10.0.253.37     .GPS.            1 u  962 1024  377    6.905   15.253  17.555
+    +10.0.253.101    .GPS.            1 u  730 1024  377   77.260    1.975   4.481
+Controller-2:
+         remote           refid      st t when poll reach   delay   offset  jitter
+    ==============================================================================
+    *10.0.253.37     .GPS.            1 u  744 1024  377   26.759   12.880  15.112
+    +10.0.253.101    .GPS.            1 u  588 1024  377   76.238    5.664   9.209
+
+ salt * cmd.run df -kh
+Storage-3:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       447G  8.5G  439G   2% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  2.5M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    /dev/sdc1       1.8T  251G  1.6T  15% /var/lib/ceph/osd/ceph-1
+    /dev/sdm1       1.8T  227G  1.6T  13% /var/lib/ceph/osd/ceph-4
+    /dev/sdi1       1.8T  243G  1.6T  14% /var/lib/ceph/osd/ceph-7
+    /dev/sdf1       1.8T  210G  1.6T  12% /var/lib/ceph/osd/ceph-11
+    /dev/sdj1       1.8T  244G  1.6T  14% /var/lib/ceph/osd/ceph-13
+    /dev/sdb1       1.8T  222G  1.6T  13% /var/lib/ceph/osd/ceph-16
+    /dev/sdg1       1.8T  241G  1.6T  14% /var/lib/ceph/osd/ceph-19
+    /dev/sde1       1.8T  231G  1.6T  13% /var/lib/ceph/osd/ceph-23
+    /dev/sdd1       1.8T  192G  1.6T  11% /var/lib/ceph/osd/ceph-26
+    /dev/sdk1       1.8T  217G  1.6T  13% /var/lib/ceph/osd/ceph-29
+    /dev/sdl1       1.8T  207G  1.6T  12% /var/lib/ceph/osd/ceph-32
+    /dev/sdh1       1.8T  223G  1.6T  13% /var/lib/ceph/osd/ceph-35
+    /dev/nvme0n1p7  303G   81M  303G   1% /var/lib/ceph/osd/ceph-36
+    /dev/nvme1n1p7  303G   76M  303G   1% /var/lib/ceph/osd/ceph-39
+    tmpfs            26G     0   26G   0% /run/user/1000
+Storage-5:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       447G  8.0G  439G   2% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  2.5M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    /dev/sdc1       1.8T  197G  1.6T  11% /var/lib/ceph/osd/ceph-0
+    /dev/sdm1       1.8T  206G  1.6T  12% /var/lib/ceph/osd/ceph-3
+    /dev/sdi1       1.8T  207G  1.6T  12% /var/lib/ceph/osd/ceph-6
+    /dev/sdf1       1.8T  255G  1.5T  15% /var/lib/ceph/osd/ceph-9
+    /dev/sdj1       1.8T  229G  1.6T  13% /var/lib/ceph/osd/ceph-12
+    /dev/sdb1       1.8T  205G  1.6T  12% /var/lib/ceph/osd/ceph-15
+    /dev/sdg1       1.8T  252G  1.5T  15% /var/lib/ceph/osd/ceph-18
+    /dev/sde1       1.8T  212G  1.6T  12% /var/lib/ceph/osd/ceph-21
+    /dev/sdd1       1.8T  194G  1.6T  11% /var/lib/ceph/osd/ceph-24
+    /dev/sdk1       1.8T  244G  1.6T  14% /var/lib/ceph/osd/ceph-27
+    /dev/sdl1       1.8T  220G  1.6T  13% /var/lib/ceph/osd/ceph-30
+    /dev/sdh1       1.8T  235G  1.6T  14% /var/lib/ceph/osd/ceph-33
+    /dev/nvme0n1p7  303G   80M  303G   1% /var/lib/ceph/osd/ceph-38
+    /dev/nvme1n1p7  303G   76M  303G   1% /var/lib/ceph/osd/ceph-41
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-0:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G  138G  310G  31% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.1M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+Controller-0:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G  134G  314G  30% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G   39M  126G   1% /dev/shm
+    tmpfs           126G  4.0M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/982
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-5:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   15G  433G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.2M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+Storage-4:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       447G  8.1G  439G   2% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  2.5M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    /dev/sdc1       1.8T  238G  1.6T  14% /var/lib/ceph/osd/ceph-2
+    /dev/sdm1       1.8T  238G  1.6T  14% /var/lib/ceph/osd/ceph-5
+    /dev/sdi1       1.8T  211G  1.6T  12% /var/lib/ceph/osd/ceph-8
+    /dev/sdf1       1.8T  240G  1.6T  14% /var/lib/ceph/osd/ceph-10
+    /dev/sdj1       1.8T  229G  1.6T  13% /var/lib/ceph/osd/ceph-14
+    /dev/sdb1       1.8T  243G  1.6T  14% /var/lib/ceph/osd/ceph-17
+    /dev/sdg1       1.8T  235G  1.6T  14% /var/lib/ceph/osd/ceph-20
+    /dev/sde1       1.8T  245G  1.6T  14% /var/lib/ceph/osd/ceph-22
+    /dev/sdd1       1.8T  192G  1.6T  11% /var/lib/ceph/osd/ceph-25
+    /dev/sdk1       1.8T  179G  1.6T  10% /var/lib/ceph/osd/ceph-28
+    /dev/sdl1       1.8T  191G  1.6T  11% /var/lib/ceph/osd/ceph-31
+    /dev/sdh1       1.8T  248G  1.6T  14% /var/lib/ceph/osd/ceph-34
+    /dev/nvme0n1p7  303G   85M  303G   1% /var/lib/ceph/osd/ceph-37
+    /dev/nvme1n1p7  303G   82M  303G   1% /var/lib/ceph/osd/ceph-40
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-9:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   15G  433G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.6M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+Controller-1:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G  231G  217G  52% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G   54M  126G   1% /dev/shm
+    tmpfs           126G  4.0M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/982
+    tmpfs            26G     0   26G   0% /run/user/163
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriovCMMPerformanceCompute-7:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   11G  437G   3% /
+    devtmpfs         34G     0   34G   0% /dev
+    tmpfs           111G  4.0K  111G   1% /dev/shm
+    tmpfs           111G  7.5M  111G   1% /run
+    tmpfs           111G     0  111G   0% /sys/fs/cgroup
+    tmpfs            23G     0   23G   0% /run/user/981
+    tmpfs            23G     0   23G   0% /run/user/1000
+TripleNicSriovCMMPerformanceCompute-5:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  434G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.3M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriovCMMPerformanceCompute-4:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  434G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.3M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-2:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   16G  432G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.4M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-4:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  434G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.7M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriov1GPerformanceCompute-0:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   17G  431G   4% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.4M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-8:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   17G  431G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.5M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-3:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   31G  417G   7% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.7M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-6:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  434G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.6M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriov1GPerformanceCompute-1:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   11G  437G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.3M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-7:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   12G  436G   3% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.7M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriovCMMPerformanceCompute-6:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  435G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.4M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/1000
+Controller-2:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G  108G  340G  25% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G   39M  126G   1% /dev/shm
+    tmpfs           126G  4.0M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/981
+    tmpfs            26G     0   26G   0% /run/user/982
+    tmpfs            26G     0   26G   0% /run/user/163
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriov1GPerformanceCompute-3:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   11G  437G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.3M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriovPerformanceCompute-1:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   18G  430G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.9M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriov1GPerformanceCompute-2:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   11G  437G   3% /
+    devtmpfs         38G     0   38G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.2M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+TripleNicSriovPerformanceCompute-0:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   18G  430G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  7.9M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+OvsCompute-1:
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda2       448G   14G  434G   4% /
+    devtmpfs        126G     0  126G   0% /dev
+    tmpfs           126G  4.0K  126G   1% /dev/shm
+    tmpfs           126G  3.6M  126G   1% /run
+    tmpfs           126G     0  126G   0% /sys/fs/cgroup
+    tmpfs            26G     0   26G   0% /run/user/1000
+
+ salt *Controller* cmd.run ntpstat
+Controller-1:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 67 ms
+       polling server every 1024 s
+Controller-0:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 44 ms
+       polling server every 1024 s
+Controller-2:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 59 ms
+       polling server every 1024 s
+
+ salt '*' cmd.run 'ntpstat'
+Storage-3:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 87 ms
+       polling server every 1024 s
+OvsCompute-0:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 63 ms
+       polling server every 1024 s
+Storage-5:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 87 ms
+       polling server every 1024 s
+Storage-4:
+    synchronised to NTP server (172.31.255.13) at stratum 3 
+       time correct to within 81 ms
+       polling server every 1024 s
+TripleNicSriov1GPerformanceCompute-2:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 90 ms
+       polling server every 1024 s
+TripleNicSriovCMMPerformanceCompute-6:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 92 ms
+       polling server every 1024 s
+TripleNicSriov1GPerformanceCompute-3:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 66 ms
+       polling server every 1024 s
+Controller-2:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 59 ms
+       polling server every 1024 s
+Controller-0:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 44 ms
+       polling server every 1024 s
+OvsCompute-5:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 63 ms
+       polling server every 1024 s
+OvsCompute-9:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 61 ms
+       polling server every 1024 s
+Controller-1:
+    synchronised to NTP server (10.0.253.37) at stratum 2 
+       time correct to within 67 ms
+       polling server every 1024 s
+OvsCompute-8:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 92 ms
+       polling server every 1024 s
+OvsCompute-6:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 64 ms
+       polling server every 512 s
+OvsCompute-4:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 68 ms
+       polling server every 1024 s
+OvsCompute-3:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 88 ms
+       polling server every 1024 s
+TripleNicSriovPerformanceCompute-0:
+    synchronised to NTP server (172.31.255.13) at stratum 3 
+       time correct to within 78 ms
+       polling server every 1024 s
+OvsCompute-2:
+    synchronised to NTP server (172.31.255.13) at stratum 3 
+       time correct to within 85 ms
+       polling server every 1024 s
+OvsCompute-7:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 92 ms
+       polling server every 1024 s
+TripleNicSriovCMMPerformanceCompute-7:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 63 ms
+       polling server every 1024 s
+TripleNicSriov1GPerformanceCompute-1:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 63 ms
+       polling server every 1024 s
+TripleNicSriov1GPerformanceCompute-0:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 68 ms
+       polling server every 1024 s
+TripleNicSriovPerformanceCompute-1:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 88 ms
+       polling server every 1024 s
+TripleNicSriovCMMPerformanceCompute-5:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 87 ms
+       polling server every 1024 s
+TripleNicSriovCMMPerformanceCompute-4:
+    synchronised to NTP server (172.31.255.20) at stratum 3 
+       time correct to within 90 ms
+       polling server every 1024 s
+OvsCompute-1:
+    synchronised to NTP server (172.31.255.18) at stratum 3 
+       time correct to within 92 ms
+       polling server every 1024 s
+
+ salt * cmd.run hwclock --systohc
+TripleNicSriovCMMPerformanceCompute-6:
+TripleNicSriovPerformanceCompute-1:
+Storage-4:
+TripleNicSriovCMMPerformanceCompute-7:
+TripleNicSriov1GPerformanceCompute-2:
+TripleNicSriovCMMPerformanceCompute-4:
+TripleNicSriovCMMPerformanceCompute-5:
+TripleNicSriov1GPerformanceCompute-3:
+TripleNicSriov1GPerformanceCompute-1:
+Storage-3:
+Controller-1:
+Controller-0:
+TripleNicSriovPerformanceCompute-0:
+OvsCompute-3:
+OvsCompute-4:
+Storage-5:
+OvsCompute-2:
+TripleNicSriov1GPerformanceCompute-0:
+OvsCompute-6:
+OvsCompute-8:
+OvsCompute-5:
+OvsCompute-0:
+OvsCompute-7:
+Controller-2:
+OvsCompute-9:
+OvsCompute-1:
+
+ nova list --all --fields=host,name,status
++--------------------------------------+-------------------------------------------------------------+--------------------------------------------------------+--------+
+| ID                                   | Host                                                        | Name                                                   | Status |
++--------------------------------------+-------------------------------------------------------------+--------------------------------------------------------+--------+
+| 07a5d98c-dd8b-49e7-9be9-bd8badc64cc6 | overcloud-ovscompute-0.localdomain                          | labnkhom03                                             | ACTIVE |
+| 0f4ee885-9b42-460d-8713-be9df0c04642 | overcloud-ovscompute-0.localdomain                          | Heat-ToolKit                                           | ACTIVE |
+| 508801c5-23b8-49fa-a5ad-cc2bcf8536d5 | overcloud-ovscompute-0.localdomain                          | cbam1852-installer                                     | ACTIVE |
+| 820fedb4-1334-47dd-909b-76cdb55621b1 | overcloud-ovscompute-0.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-oam-node-1       | ACTIVE |
+| a6af13c3-fb99-4729-add2-599d7ca1b9ad | overcloud-ovscompute-0.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-smd-node-1       | ACTIVE |
+| fc75b999-8327-4130-a569-72f7638414b4 | overcloud-ovscompute-0.localdomain                          | labnkcmr04                                             | ACTIVE |
+| 3dd0ed17-d357-45f1-b75e-abcf272b4e82 | overcloud-ovscompute-1.localdomain                          | LAB ENUM FE-labnkenm01                                 | ACTIVE |
+| 44cabc5c-4ef5-489e-8685-9cb20d12a09d | overcloud-ovscompute-1.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-db-node-1        | ACTIVE |
+| 985301a3-6613-4849-8309-c87734414175 | overcloud-ovscompute-1.localdomain                          | labnkalb01                                             | ACTIVE |
+| b121928c-2c48-410e-ada6-29f96be7126c | overcloud-ovscompute-1.localdomain                          | labnkhom02                                             | ACTIVE |
+| b5661e11-04fa-40f7-a287-0a77325de724 | overcloud-ovscompute-1.localdomain                          | labnkcmr03                                             | ACTIVE |
+| bae261fe-173d-42f5-a8d4-fbcebd47a355 | overcloud-ovscompute-1.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-http-node-0      | ACTIVE |
+| e32f2068-2200-4084-873b-ac0ec45f8ae2 | overcloud-ovscompute-1.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-storage-node-0   | ACTIVE |
+| f6935eef-bd8e-4a61-9a05-6c9b88a5a75e | overcloud-ovscompute-1.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-ddeapp-1         | ACTIVE |
+| fc66dfd5-6b86-4fd9-b678-556f55f5f2d4 | overcloud-ovscompute-1.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-infra-node-2     | ACTIVE |
+| fc7fcef0-522c-4a19-aa70-e1e5205ce1dd | overcloud-ovscompute-1.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-li-node-1        | ACTIVE |
+| 17be60d2-d9f5-4b05-a985-34d6d37a12aa | overcloud-ovscompute-2.localdomain                          | labnkvom03                                             | ACTIVE |
+| 36177d2c-f69f-4414-a453-46062b4a230a | overcloud-ovscompute-2.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-admintd-node-0   | ACTIVE |
+| 38596513-2167-4e2e-9f63-3af71f4aaf59 | overcloud-ovscompute-2.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-m3ua-node-1      | ACTIVE |
+| 427ed76f-89a1-4e2b-ba16-935135fc57b0 | overcloud-ovscompute-2.localdomain                          | labnkdns02                                             | ACTIVE |
+| 49393dcd-148d-4232-9e51-296589a9a574 | overcloud-ovscompute-2.localdomain                          | LAB ENUM SM-labnkesm01                                 | ACTIVE |
+| 5659afe4-533c-485b-94aa-efa43ffa7a86 | overcloud-ovscompute-2.localdomain                          | LAB-vDSC-PS0-HA_Server                                 | ACTIVE |
+| d22899dd-f079-4ac3-a644-baaef794d244 | overcloud-ovscompute-2.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-reporting-node-0 | ACTIVE |
+| f94cec4e-7092-4515-96a6-b188257d40d6 | overcloud-ovscompute-2.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-dtdsh-node-1     | ACTIVE |
+| 2332325e-0fb7-4981-9603-0e504627d6ce | overcloud-ovscompute-3.localdomain                          | labnkaaa01                                             | ACTIVE |
+| 264c3124-657c-4c4b-814e-57f86a974eea | overcloud-ovscompute-3.localdomain                          | labnkcmr02                                             | ACTIVE |
+| 30e9159d-f05c-4118-8213-dca088cb01e2 | overcloud-ovscompute-3.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-ddeapp-0         | ACTIVE |
+| 6c6a3408-96e0-499c-85aa-98eaa4c883f6 | overcloud-ovscompute-3.localdomain                          | labnkpcf01-oam-a                                       | ACTIVE |
+| 772b1a9e-3919-44f4-8ded-f247d6459fdf | overcloud-ovscompute-3.localdomain                          | LAB-vDSC-PS0-HA_Mate_Server                            | ACTIVE |
+| 816ec3b8-4bc2-4b4a-aaf2-e5a0c4dacd87 | overcloud-ovscompute-3.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-oam-node-0       | ACTIVE |
+| 9d72ebe5-ed87-4dba-b9d2-6a370f42ffbf | overcloud-ovscompute-3.localdomain                          | CBAM-515062b999e94f0fb49d70e7f43736ba-db-0             | ACTIVE |
+| a20e16e0-199c-4add-9254-fce88cac5d5d | overcloud-ovscompute-3.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-h248-node-0      | ACTIVE |
+| bd842466-b01a-4cd5-8d5d-c5aa78a638fe | overcloud-ovscompute-3.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-dtdro-node-0     | ACTIVE |
+| e8754307-f02a-43b6-9d54-423da0f56a67 | overcloud-ovscompute-3.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-dtdsh-node-0     | ACTIVE |
+| f39d09f5-9b36-4acd-9fd0-a07de1b6a54e | overcloud-ovscompute-3.localdomain                          | CBAM-515062b999e94f0fb49d70e7f43736ba-db-1             | ACTIVE |
+| 13e1a0f6-7726-4afd-bb2d-6a332c4e0334 | overcloud-ovscompute-4.localdomain                          | labnktdc02                                             | ACTIVE |
+| 20a01053-3a6e-40be-b203-fb96129ad7bd | overcloud-ovscompute-4.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-admintd-node-1   | ACTIVE |
+| 2901ccd8-1dc7-4bec-9473-bc8d4e181ffd | overcloud-ovscompute-4.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-http-node-1      | ACTIVE |
+| 4135960b-5f36-45ac-9a26-053d4ef83551 | overcloud-ovscompute-4.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-reporting-node-1 | ACTIVE |
+| 617268f1-e0ca-43af-af6a-fbd912347027 | overcloud-ovscompute-4.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-db-1             | ACTIVE |
+| 9c94c0af-79fc-4e1d-8e0f-5d0886136c00 | overcloud-ovscompute-4.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-li-node-0        | ACTIVE |
+| a00795be-c1cc-4aaa-9c2a-d594e539edf5 | overcloud-ovscompute-4.localdomain                          | labnkvlb02                                             | ACTIVE |
+| af5a0ccd-80d9-4992-a784-7857ff435c46 | overcloud-ovscompute-4.localdomain                          | LAB-vDSC-CS-HA_Mate_Server                             | ACTIVE |
+| c98d20cc-0b19-4b24-86b5-f721ff713424 | overcloud-ovscompute-4.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-db-2             | ACTIVE |
+| e55687d0-5155-4e06-a951-af8cb09d64cb | overcloud-ovscompute-4.localdomain                          | labnkltd02                                             | ACTIVE |
+| 0798bb04-3d60-4d41-9e6f-296a1966e39b | overcloud-ovscompute-5.localdomain                          | labnkdlb01                                             | ACTIVE |
+| 20fcc1c4-d84b-442c-a375-fc135c780dae | overcloud-ovscompute-5.localdomain                          | labnktdc01                                             | ACTIVE |
+| 40e3ccdd-2459-4eea-9456-503dfd8eeb76 | overcloud-ovscompute-5.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-ddeapp-2         | ACTIVE |
+| 7bcc41a9-54d6-4e8c-a10d-b10c328701d7 | overcloud-ovscompute-5.localdomain                          | labnkvcf01                                             | ACTIVE |
+| 986cd520-2e9f-4fad-91f7-7d5f9cd5dea8 | overcloud-ovscompute-5.localdomain                          | labnkvom02                                             | ACTIVE |
+| a60c1dc0-11d1-4dd7-9a74-75a3351e990a | overcloud-ovscompute-5.localdomain                          | labnkdng01                                             | ACTIVE |
+| cf488ed3-09e9-4d2f-8a79-f38d82b71ff0 | overcloud-ovscompute-5.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-reporting-node-2 | ACTIVE |
+| 2d6902d6-7ae3-490e-90bd-b9fedbc790a2 | overcloud-ovscompute-6.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-ddeio-0          | ACTIVE |
+| 3773e573-7cec-41bd-ae0e-8a26a020edd4 | overcloud-ovscompute-6.localdomain                          | labnkvom01                                             | ACTIVE |
+| a44855c3-f805-4b13-88a3-c35440075129 | overcloud-ovscompute-6.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-xcapsoap-node-0  | ACTIVE |
+| a4b94ee3-a66f-4891-b73b-226e1e98c4b7 | overcloud-ovscompute-6.localdomain                          | LAB ENUM INS-labnkeis01                                | ACTIVE |
+| b1866a1e-3b98-4f1b-b618-3cb3c0c3bd05 | overcloud-ovscompute-6.localdomain                          | labnkvcf02                                             | ACTIVE |
+| bfe53199-09d8-4be2-a193-bc3b088675fe | overcloud-ovscompute-6.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-tasc-node-0      | ACTIVE |
+| c58ae664-7e52-4e0a-9c17-3e96c4691727 | overcloud-ovscompute-6.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-smd-node-0       | ACTIVE |
+| e27c7085-d09f-4c26-aa1e-20840694d770 | overcloud-ovscompute-6.localdomain                          | labnkltd01                                             | ACTIVE |
+| ea62997e-e50f-49d3-a205-dbf4ecbb57ad | overcloud-ovscompute-6.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-ddeio-1          | ACTIVE |
+| fb902d6d-9a63-451d-b8c2-6ebc746d9d1a | overcloud-ovscompute-6.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-storage-node-2   | ACTIVE |
+| 0298d230-4589-4f1f-8a43-cc082c4ce269 | overcloud-ovscompute-7.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-db-node-2        | ACTIVE |
+| 0f726c0c-b779-4e41-9124-c3669f8a16e0 | overcloud-ovscompute-7.localdomain                          | labnkvlb01                                             | ACTIVE |
+| 19cbb8a0-e0d5-4e84-8cb0-6e6fc8c31ae8 | overcloud-ovscompute-7.localdomain                          | SI-STUDIO                                              | ACTIVE |
+| 7f7818c0-eb8c-4c11-8af3-a638da8776e7 | overcloud-ovscompute-7.localdomain                          | labnkhom01                                             | ACTIVE |
+| 7facaf2d-ccd5-4fe3-9f04-a607a4d1a55e | overcloud-ovscompute-7.localdomain                          | sistudio_sg1                                           | ACTIVE |
+| 894d259d-785d-4152-bf42-a70962d400eb | overcloud-ovscompute-7.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-h248-node-1      | ACTIVE |
+| bcad1ff6-0404-4cbf-a980-4d0c96f13726 | overcloud-ovscompute-7.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-db-0             | ACTIVE |
+| d10f18e9-ea52-4c53-9047-27419ba1b65c | overcloud-ovscompute-7.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-dtdro-node-1     | ACTIVE |
+| deae27a3-fc6f-4f08-b958-dc5f31f9cb0b | overcloud-ovscompute-7.localdomain                          | labnkpcf01-oam-b                                       | ACTIVE |
+| ee6835ae-0686-4237-93dd-70caaa1aeaf1 | overcloud-ovscompute-7.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-m3ua-node-0      | ACTIVE |
+| fac1c54a-036b-419e-8ed3-d0aa730f8908 | overcloud-ovscompute-7.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-infra-node-1     | ACTIVE |
+| 04e35795-b728-41c8-a02b-b62856b621dd | overcloud-ovscompute-8.localdomain                          | labnkhss01                                             | ACTIVE |
+| 1026c89e-996d-456e-bcfb-67f5539ba7e9 | overcloud-ovscompute-8.localdomain                          | CBAM-515062b999e94f0fb49d70e7f43736ba-oame-1           | ACTIVE |
+| 1ce93885-a39e-4e1e-b9c6-0f164aa02f9d | overcloud-ovscompute-8.localdomain                          | LAB-vDSC-CS-HA_Server                                  | ACTIVE |
+| 276886f2-d02b-42c1-a706-34768db381df | overcloud-ovscompute-8.localdomain                          | labnkhss02                                             | ACTIVE |
+| 468c1c56-3b0e-40be-9b8d-b5ce35d07aed | overcloud-ovscompute-8.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-oam-node-2       | ACTIVE |
+| 6ea8efa4-9e3a-490e-b3cf-acf770867912 | overcloud-ovscompute-8.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-ccf-node-1       | ACTIVE |
+| 888c5467-f7b9-4a2d-9ab9-ab26cd688cd8 | overcloud-ovscompute-8.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-xcapsoap-node-1  | ACTIVE |
+| 9df50b9c-0dca-4deb-ab78-77b982af2171 | overcloud-ovscompute-8.localdomain                          | LAB ENUM FE-labnkenm02                                 | ACTIVE |
+| a06b76ee-80d1-4fe7-b1da-0a58728ed143 | overcloud-ovscompute-8.localdomain                          | TorontoLab-cbam-single                                 | ACTIVE |
+| ddc6e14c-2eb4-4e7b-9a38-ead6d19a008e | overcloud-ovscompute-8.localdomain                          | CBAM-515062b999e94f0fb49d70e7f43736ba-oame-0           | ACTIVE |
+| 229d2135-b838-4266-9fda-1907eaea96dc | overcloud-ovscompute-9.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-storage-node-1   | ACTIVE |
+| 26575836-6ba7-4347-94ae-08735da862c0 | overcloud-ovscompute-9.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-oame-1           | ACTIVE |
+| 54974d54-38e1-46f6-a7be-454f87f748c1 | overcloud-ovscompute-9.localdomain                          | labnkalb02                                             | ACTIVE |
+| 58dae399-930a-4b2e-b61d-2da14814ac9a | overcloud-ovscompute-9.localdomain                          | labnkdlb02                                             | ACTIVE |
+| 5c3d7a65-1c96-4686-baa5-e8bdcd44691a | overcloud-ovscompute-9.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-db-node-0        | ACTIVE |
+| 60f950e3-98d4-4a0d-b8b5-1f6c2579b3bc | overcloud-ovscompute-9.localdomain                          | labnkcmr01                                             | ACTIVE |
+| 84c3e1dc-df21-4243-8650-61d0b6ecf764 | overcloud-ovscompute-9.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-infra-node-0     | ACTIVE |
+| a242cd76-e997-4322-b9e8-01241b32b2d2 | overcloud-ovscompute-9.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-tasc-node-1      | ACTIVE |
+| ca8dbe15-9ec0-4135-b59f-541f56738e4e | overcloud-ovscompute-9.localdomain                          | CBAM-a5a5a0980f534fbdacbed690cd67c43d-ccf-node-0       | ACTIVE |
+| e1711db6-216f-4085-a561-9b6ed465479a | overcloud-ovscompute-9.localdomain                          | CBAM-1eafc4748992478faaf5fab7e870b878-oame-0           | ACTIVE |
+| 0791f7d5-c05c-4ad0-8f0b-f9a494021094 | overcloud-triplenicsriov1gperformancecompute-0.localdomain  | labnkspgw01-OAM-B                                      | ACTIVE |
+| 66713f8b-5282-4798-a2b9-5582aae23750 | overcloud-triplenicsriov1gperformancecompute-0.localdomain  | labnkepdg01-LB-2                                       | ACTIVE |
+| b6ed7c81-3e73-4584-b63c-1414b50d7f2b | overcloud-triplenicsriov1gperformancecompute-0.localdomain  | labnkepdg01-OAM-B                                      | ACTIVE |
+| bcbd7af2-8219-4231-a631-a01f6a2cfe5f | overcloud-triplenicsriov1gperformancecompute-0.localdomain  | labnkspgw01-LB-2                                       | ACTIVE |
+| 8c7c5df7-cc99-4d29-8153-df7301f6e6a6 | overcloud-triplenicsriov1gperformancecompute-1.localdomain  | labnkepdg01-mgWorking-3                                | ACTIVE |
+| b10ea212-13dd-48dc-a4e0-72329ceda895 | overcloud-triplenicsriov1gperformancecompute-1.localdomain  | labnkspgw01-LB-1                                       | ACTIVE |
+| b73debf3-5d2c-475a-a030-8ead86974216 | overcloud-triplenicsriov1gperformancecompute-1.localdomain  | labnkspgw01-OAM-A                                      | ACTIVE |
+| 098f7cd8-59da-4372-bfb0-a6a834c653d7 | overcloud-triplenicsriov1gperformancecompute-2.localdomain  | labnkepdg01-mgProtect-4                                | ACTIVE |
+| fdb49154-92c2-401e-a36f-8ced37e2fa5c | overcloud-triplenicsriov1gperformancecompute-2.localdomain  | labnkspgw01-mgProtect-4                                | ACTIVE |
+| 04348e03-575c-4ffc-8606-2bce3c9f3212 | overcloud-triplenicsriov1gperformancecompute-3.localdomain  | labnkspgw01-mgWorking-3                                | ACTIVE |
+| ed0cb0ff-47e2-4470-94eb-a3da846b72b7 | overcloud-triplenicsriov1gperformancecompute-3.localdomain  | labnkepdg01-LB-1                                       | ACTIVE |
+| f489c4ea-2e8a-4ce2-82fd-259ffed592a0 | overcloud-triplenicsriov1gperformancecompute-3.localdomain  | labnkepdg01-OAM-A                                      | ACTIVE |
+| 0c30fa28-e213-4ead-b2f3-ea21476ed259 | overcloud-triplenicsriovcmmperformancecompute-4.localdomain | cmm-labnkcmm01-necc0                                   | ACTIVE |
+| a5240cc9-567f-44bb-b386-d030e0103277 | overcloud-triplenicsriovcmmperformancecompute-4.localdomain | cmm-labnkcmm01-dbs0                                    | ACTIVE |
+| ece684ab-b692-4b2b-aab0-45173a05957f | overcloud-triplenicsriovcmmperformancecompute-4.localdomain | cmm-labnkcmm01-paps0                                   | ACTIVE |
+| 20a0a8ba-e369-4cbd-b598-53f405a0c295 | overcloud-triplenicsriovcmmperformancecompute-5.localdomain | cmm-labnkcmm01-necc2                                   | ACTIVE |
+| 99b1ab8f-42c7-40cd-86fd-f5f30b7976d0 | overcloud-triplenicsriovcmmperformancecompute-5.localdomain | cmm-labnkcmm01-dbs1                                    | ACTIVE |
+| c8494829-b530-4e89-aa25-d5cf89b8d59b | overcloud-triplenicsriovcmmperformancecompute-5.localdomain | cmm-labnkcmm01-paps1                                   | ACTIVE |
+| 6562ab69-4704-4d0a-8a91-be3a55fc219d | overcloud-triplenicsriovcmmperformancecompute-6.localdomain | cmm-labnkcmm01-ipps0                                   | ACTIVE |
+| 6b8d28b3-9b4b-4eb4-b271-12a41f79782f | overcloud-triplenicsriovcmmperformancecompute-6.localdomain | cmm-labnkcmm01-necc1                                   | ACTIVE |
+| b28791c1-db97-4365-a248-ff44f0b2f03c | overcloud-triplenicsriovcmmperformancecompute-6.localdomain | cmm-labnkcmm01-ipds0                                   | ACTIVE |
+| 0b7db1a5-0b6e-4b7c-9f63-5fce3c4a1913 | overcloud-triplenicsriovcmmperformancecompute-7.localdomain | cmm-labnkcmm01-cpps1                                   | ACTIVE |
+| 21663e99-34cc-4a20-a21f-8ddc4213a888 | overcloud-triplenicsriovcmmperformancecompute-7.localdomain | cmm-labnkcmm01-cpps0                                   | ACTIVE |
+| 597b63c9-0bda-4195-b862-8d9dcdaf6f0e | overcloud-triplenicsriovcmmperformancecompute-7.localdomain | cmm-labnkcmm01-ipds1                                   | ACTIVE |
+| 97790061-2b37-4fb7-b660-6f5f0c59ac22 | overcloud-triplenicsriovcmmperformancecompute-7.localdomain | cmm-labnkcmm01-ipps1                                   | ACTIVE |
+| 1fcc6d56-cc07-4a78-8ade-de54b3d72d09 | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-dfed-b                                      | ACTIVE |
+| 2cfe84b2-c76d-4ca9-b383-86bdfd3d961a | overcloud-triplenicsriovperformancecompute-0.localdomain    | lbgw0001vm020                                          | ACTIVE |
+| 550baec9-540e-4edf-bc21-02d1062f8d3f | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-cfed-b                                      | ACTIVE |
+| 5df43159-ff71-4b4d-8c73-315dc7f73b58 | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-fwa-b                                       | ACTIVE |
+| 9ba6afce-1f17-4995-9931-69d3a873a960 | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-sc1-b                                       | ACTIVE |
+| bf2d706a-787e-4b01-bd69-d750678f81b8 | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-bgc1-b                                      | ACTIVE |
+| c6e897ba-fa52-4ba8-af61-43c894bad062 | overcloud-triplenicsriovperformancecompute-0.localdomain    | labnkpcf01-fwp-b                                       | ACTIVE |
+| c99b6eed-d69c-4dec-abdc-26b8cd15caa0 | overcloud-triplenicsriovperformancecompute-0.localdomain    | lbgw0001vm002                                          | ACTIVE |
+| d0ddf7d6-65ea-4cea-b59f-14bc35b1b13e | overcloud-triplenicsriovperformancecompute-0.localdomain    | lbgw0001vm011                                          | ACTIVE |
+| 67b18f3d-e19f-484c-8e01-d47f0281037e | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-sc1-a                                       | ACTIVE |
+| 6b145f47-28fb-4dad-a041-f0b100286ae8 | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-fwa-a                                       | ACTIVE |
+| 79a68ebd-030e-4a10-867c-d5027377514a | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-dfed-a                                      | ACTIVE |
+| 83af4edf-ce67-4c0f-af66-5610a98188a0 | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-cfed-a                                      | ACTIVE |
+| 8a1a1805-2454-417e-9ece-8d343350ffb4 | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-bgc1-a                                      | ACTIVE |
+| a2dc7856-a896-4658-b28f-fe455985ad51 | overcloud-triplenicsriovperformancecompute-1.localdomain    | labnkpcf01-fwp-a                                       | ACTIVE |
+| ad09d552-03d6-4e87-b829-741e17c220a7 | overcloud-triplenicsriovperformancecompute-1.localdomain    | lbgw0001vm001                                          | ACTIVE |
+| b0fed9dd-60a9-410f-a227-6ebaa26e48ad | overcloud-triplenicsriovperformancecompute-1.localdomain    | lbgw0001vm019                                          | ACTIVE |
+| da51794b-6eb6-4760-a4a3-ee5174316f43 | overcloud-triplenicsriovperformancecompute-1.localdomain    | lbgw0001vm010                                          | ACTIVE |
++--------------------------------------+-------------------------------------------------------------+--------------------------------------------------------+--------+
+
+ salt Controller-0 cmd.run sudo ceph osd tree
+Controller-0:
+    ID  WEIGHT   TYPE NAME                           UP/DOWN REWEIGHT PRIMARY-AFFINITY 
+     -5  6.00000 root fast                                                             
+    -10        0     host fast-overcloud-storage-2                                     
+    -12  2.00000     host fast-overcloud-storage-3                                     
+     36  1.00000         osd.36                           up  1.00000          1.00000 
+     39  1.00000         osd.39                           up  1.00000          1.00000 
+    -11  2.00000     host fast-overcloud-storage-4                                     
+     37  1.00000         osd.37                           up  1.00000          1.00000 
+     40  1.00000         osd.40                           up  1.00000          1.00000 
+     -9  2.00000     host fast-overcloud-storage-5                                     
+     38  1.00000         osd.38                           up  1.00000          1.00000 
+     41  1.00000         osd.41                           up  1.00000          1.00000 
+     -1 62.82596 root common                                                           
+     -2        0     host common-overcloud-storage-2                                   
+     -6 20.94199     host common-overcloud-storage-3                                   
+      1  1.74500         osd.1                            up  1.00000          1.00000 
+      4  1.74500         osd.4                            up  1.00000          1.00000 
+      7  1.74500         osd.7                            up  1.00000          1.00000 
+     11  1.74500         osd.11                           up  1.00000          1.00000 
+     13  1.74500         osd.13                           up  1.00000          1.00000 
+     16  1.74500         osd.16                           up  1.00000          1.00000 
+     19  1.74500         osd.19                           up  1.00000          1.00000 
+     23  1.74500         osd.23                           up  1.00000          1.00000 
+     26  1.74500         osd.26                           up  1.00000          1.00000 
+     29  1.74500         osd.29                           up  1.00000          1.00000 
+     32  1.74500         osd.32                           up  1.00000          1.00000 
+     35  1.74500         osd.35                           up  1.00000          1.00000 
+     -4 20.94199     host common-overcloud-storage-4                                   
+      2  1.74500         osd.2                            up  1.00000          1.00000 
+      5  1.74500         osd.5                            up  1.00000          1.00000 
+      8  1.74500         osd.8                            up  1.00000          1.00000 
+     10  1.74500         osd.10                           up  1.00000          1.00000 
+     14  1.74500         osd.14                           up  1.00000          1.00000 
+     17  1.74500         osd.17                           up  1.00000          1.00000 
+     20  1.74500         osd.20                           up  1.00000          1.00000 
+     22  1.74500         osd.22                           up  1.00000          1.00000 
+     25  1.74500         osd.25                           up  1.00000          1.00000 
+     28  1.74500         osd.28                           up  1.00000          1.00000 
+     31  1.74500         osd.31                           up  1.00000          1.00000 
+     34  1.74500         osd.34                           up  1.00000          1.00000 
+     -3 20.94199     host common-overcloud-storage-5                                   
+      0  1.74500         osd.0                            up  1.00000          1.00000 
+      3  1.74500         osd.3                            up  1.00000          1.00000 
+      6  1.74500         osd.6                            up  1.00000          1.00000 
+      9  1.74500         osd.9                            up  1.00000          1.00000 
+     12  1.74500         osd.12                           up  1.00000          1.00000 
+     15  1.74500         osd.15                           up  1.00000          1.00000 
+     18  1.74500         osd.18                           up  1.00000          1.00000 
+     21  1.74500         osd.21                           up  1.00000          1.00000 
+     24  1.74500         osd.24                           up  1.00000          1.00000 
+     27  1.74500         osd.27                           up  1.00000          1.00000 
+     30  1.74500         osd.30                           up  1.00000          1.00000 
+     33  1.74500         osd.33                           up  1.00000          1.00000
+
+ nova service-list
++-----+------------------+-------------------------------------------------------------+----------+---------+-------+----------------------------+-----------------+
+| Id  | Binary           | Host                                                        | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++-----+------------------+-------------------------------------------------------------+----------+---------+-------+----------------------------+-----------------+
+| 23  | nova-consoleauth | overcloud-controller-1.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:23.000000 | -               |
+| 26  | nova-consoleauth | overcloud-controller-2.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:20.000000 | -               |
+| 179 | nova-scheduler   | overcloud-controller-2.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:18.000000 | -               |
+| 182 | nova-scheduler   | overcloud-controller-1.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:24.000000 | -               |
+| 185 | nova-conductor   | overcloud-controller-1.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 188 | nova-conductor   | overcloud-controller-2.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 266 | nova-compute     | overcloud-ovscompute-9.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 269 | nova-compute     | overcloud-ovscompute-2.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 272 | nova-compute     | overcloud-ovscompute-8.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:21.000000 | -               |
+| 275 | nova-compute     | overcloud-ovscompute-5.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 278 | nova-compute     | overcloud-ovscompute-1.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 281 | nova-compute     | overcloud-ovscompute-4.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 284 | nova-compute     | overcloud-ovscompute-3.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 287 | nova-compute     | overcloud-ovscompute-6.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 290 | nova-compute     | overcloud-ovscompute-0.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 293 | nova-compute     | overcloud-ovscompute-7.localdomain                          | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 296 | nova-consoleauth | overcloud-controller-0.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:33.000000 | -               |
+| 299 | nova-scheduler   | overcloud-controller-0.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:25.000000 | -               |
+| 302 | nova-conductor   | overcloud-controller-0.localdomain                          | internal | enabled | up    | 2020-02-26T20:07:31.000000 | -               |
+| 314 | nova-compute     | overcloud-triplenicsriovperformancecompute-0.localdomain    | zone2    | enabled | up    | 2020-02-26T20:07:26.000000 | -               |
+| 320 | nova-compute     | overcloud-triplenicsriov1gperformancecompute-0.localdomain  | zone2    | enabled | up    | 2020-02-26T20:07:26.000000 | -               |
+| 323 | nova-compute     | overcloud-triplenicsriov1gperformancecompute-1.localdomain  | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 329 | nova-compute     | overcloud-triplenicsriov1gperformancecompute-2.localdomain  | zone2    | enabled | up    | 2020-02-26T20:07:20.000000 | -               |
+| 332 | nova-compute     | overcloud-triplenicsriov1gperformancecompute-3.localdomain  | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 341 | nova-compute     | overcloud-triplenicsriovperformancecompute-1.localdomain    | zone1    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 342 | nova-compute     | overcloud-triplenicsriovcmmperformancecompute-5.localdomain | zone2    | enabled | up    | 2020-02-26T20:07:21.000000 | -               |
+| 345 | nova-compute     | overcloud-triplenicsriovcmmperformancecompute-4.localdomain | zone2    | enabled | up    | 2020-02-26T20:07:30.000000 | -               |
+| 348 | nova-compute     | overcloud-triplenicsriovcmmperformancecompute-6.localdomain | zone2    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
+| 351 | nova-compute     | overcloud-triplenicsriovcmmperformancecompute-7.localdomain | zone2    | enabled | up    | 2020-02-26T20:07:46.000000 | -               |
++-----+------------------+-------------------------------------------------------------+----------+---------+-------+----------------------------+-----------------+
+
+ cinder service-list
++------------------+-----------------------------+------+---------+-------+----------------------------+-----------------+
+| Binary           | Host                        | Zone | Status  | State | Updated_at                 | Disabled Reason |
++------------------+-----------------------------+------+---------+-------+----------------------------+-----------------+
+| cinder-scheduler | hostgroup                   | nova | enabled | up    | 2020-02-26T20:07:44.000000 | -               |
+| cinder-volume    | hostgroup@tripleo-ceph-fast | nova | enabled | up    | 2020-02-26T20:07:47.000000 | -               |
+| cinder-volume    | hostgroup@tripleo_ceph      | nova | enabled | up    | 2020-02-26T20:07:40.000000 | -               |
++------------------+-----------------------------+------+---------+-------+----------------------------+-----------------+
+
+ heat service-list |grep controller-0 |grep up |wc -l
+WARNING (shell) "heat service-list" is deprecated, please use "openstack orchestration service list" instead
+72
+
+ heat service-list
+WARNING (shell) "heat service-list" is deprecated, please use "openstack orchestration service list" instead
++------------------------+-------------+--------------------------------------+------------------------+--------+----------------------------+--------+
+| hostname               | binary      | engine_id                            | host                   | topic  | updated_at                 | status |
++------------------------+-------------+--------------------------------------+------------------------+--------+----------------------------+--------+
+| overcloud-controller-0 | heat-engine | 00f43f9a-0033-451d-a594-bc8b77cc8ee1 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 012374d6-f7c0-4d27-81ca-d072ff3a400a | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | 01924c22-743c-44ad-84c3-b900eeafa3ae | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 02f109c7-3313-4597-b48a-279772d34eca | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 038c72b9-ba27-4828-8be0-a48024d4afc9 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 03b445ff-b681-4d2b-8031-0d7d5d9fe715 | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 03bf7c28-8db6-4aea-bcca-cddacf686425 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 03dbaa02-f8df-42dd-bdbd-0ec488b89f8b | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 0889e720-06c2-48e6-859e-5563148180d9 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 0964af8f-52b6-4870-adbd-a93b4468f897 | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 0ad1874f-045b-4e88-9b62-29c6abbc8ac0 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 0d487906-7a8c-4727-90ef-43180fe16814 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 0efa6b91-c1fe-4f8c-92b3-f2366df26089 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 1420ef90-8ae6-4109-b5f5-23ab821568a9 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 154ef30b-f584-4ae7-a92e-538b252e6f46 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 18c94782-96f3-4354-97b4-fb11bcb38973 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 1bb4bccb-02f2-4d34-b84b-5aeee3320ec5 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 1d423c9e-a0d7-42aa-a433-b948fc05cb9c | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 1f45fba0-1afd-444f-aa2c-66db2d61d588 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 1f918374-2101-41dc-af04-21aee1cf64e9 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 24bcd6ff-8056-46ad-8e2f-3b7c77282bbe | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 25200630-ec46-4576-a19d-5ad54f83e19c | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 26cc0f16-8553-4f94-84a8-fd4987a9dfc6 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 2702883c-e266-4f97-8d0c-1385f956ac48 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 2714f3ba-f1e6-4409-a606-00160719e877 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 27c89ac5-acf4-4eda-a310-19847e2a4a90 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 2a0e0191-bb57-4fbe-b63b-8a35e8adfbf8 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 2a599eca-284d-448a-8706-4ad2f9268ccf | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 2c390061-9470-4104-8021-fdbd03179369 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 2e23d067-b46b-48d1-9e83-9aa8b0f75f15 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 2ee4d27d-d336-4de1-a2af-1172be7b9db8 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 2f5217c9-39e7-4b10-adcb-80be4a1bbcc0 | overcloud-controller-0 | engine | 2020-02-26T20:07:06.000000 | up     |
+| overcloud-controller-0 | heat-engine | 311d3f24-aa31-4976-9d9e-da0454284510 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 31b41729-fa90-469b-a62d-ff99b2c78777 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 33cf9184-5913-4013-9c59-14f5b5e9bd17 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 382a2ccb-0deb-459d-98ad-6915c3c2be8a | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 38fdc3e0-6cc0-4e8b-9f21-01449bcee8ba | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 3afd0b3d-3c11-4d53-aed4-921d5d183e58 | overcloud-controller-0 | engine | 2020-02-26T20:07:11.000000 | up     |
+| overcloud-controller-0 | heat-engine | 3b43d731-6d80-414c-b333-a3fd84d35894 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 3b4be7ea-24e1-4d9b-b1ec-447a8fd10ec0 | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 3de462a3-991f-4c96-9e2c-1e14635532b4 | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 3f0f8788-1432-4640-b996-8cae10ed8950 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 3f638161-66d8-4aa4-9cd5-a0f0d3536c7e | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 40ee3c7d-1d51-4465-a4de-8ab73d578c3b | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | 42447f10-e172-4937-b557-613f4e65f8fb | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 44069264-22c5-43f6-b5e5-f26338c1c18a | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 494252d7-8679-4282-8590-76e482602e4d | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 4ac08379-0476-4516-a3bb-77d3ac87e6c8 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 4bf9a143-6041-4176-8f88-414bfe0cbc0c | overcloud-controller-0 | engine | 2020-02-26T20:07:06.000000 | up     |
+| overcloud-controller-0 | heat-engine | 4d7d00c6-2def-408e-8000-80c87b4230e0 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 4f45dbbf-30b8-42c6-8f98-6174ca291a49 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 52c9fa9b-1963-41da-98a3-ab8450763f37 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 5347c8be-b5fe-4818-acdc-fa27bdc57d74 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 5459e717-5a75-4687-9f24-9aecd31fd445 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 55bd69a9-db1a-4bab-91fe-c48052c8380e | overcloud-controller-0 | engine | 2020-02-26T20:07:09.000000 | up     |
+| overcloud-controller-0 | heat-engine | 57b523ab-777b-4330-a143-54f65ce6638d | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 5903955a-140f-491a-909f-63b3352fea47 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 5e1f8dee-5682-4462-b6f7-aec44bf6a6fc | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 60a06ff7-3722-4c2f-8ef6-478d57222dd6 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | 61c1062e-7f9d-4a4a-b187-e93593161dd2 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 6210f886-b63e-439a-8ea0-b3a9ec545cd6 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 630a0c45-51d6-4da2-b7a1-6ae61bde5584 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 63f6092c-1eb1-495d-b887-16f16daba9e6 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 63f6c65d-7686-41f5-8268-c53ee15ebf4a | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 63f6f7ef-eaca-420d-adf9-97f87fe16196 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 64312252-af25-4d95-be45-eda245126a11 | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | 6908cc3e-2ec6-45c4-8cc4-1d19c23d3fd1 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 69a626c5-b0b7-4909-a76f-ec1a878a9794 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 69d1721e-56b1-46a5-8bbb-effc1242da2c | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 69ffc99c-e524-4986-8fbc-fd74e3cdc945 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | 6e8c53aa-d514-4a72-a827-f3ca6d5b0500 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 7045c498-efec-40dc-a4da-46d2866330e5 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 71a9e6ca-70e9-4b15-900a-b3298d51cffe | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 71bc6dba-e04e-49c1-8f37-ebf7e893f733 | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | 7224f092-86a1-415b-a2cb-2ddffa4eb9e8 | overcloud-controller-0 | engine | 2020-02-26T20:07:09.000000 | up     |
+| overcloud-controller-0 | heat-engine | 72bfb45c-58a9-4dd2-8e60-2743f5ddcf17 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 7543ca5d-8b15-4efe-9801-4115fe98c3dc | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | 75bf5bb6-de46-43d3-837e-7d477c1e84ec | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | 76d4f805-6b81-4cf3-a38e-69ff4ba979d5 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 79412109-a976-4abe-b2a5-4d11d780675a | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | 7f708049-8389-4afc-bfae-2283510355e9 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | 834b6b3f-0b86-492a-a3e2-7ceb3ffe8da2 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 85659519-2818-4bc6-aa5f-ef677f14b9ad | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | 89125e06-d5fd-4856-92a9-45abaf9d7429 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 8b967df8-5db3-4764-bbae-882d1fc5be3d | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | 8c37791b-5dcb-4e3f-94a1-14ac57db27ad | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 8ce488f0-4454-4569-80f1-92ed0c1ba9cb | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 90f17aef-659c-4754-9420-8eab8b8a562a | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 95e156e7-1544-4bd3-b3ee-ac941b514615 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 97d5eb2e-8eaf-41f2-84dd-42ba82d686fd | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | 9cc32174-aefd-4e55-8ff7-845bed580266 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | 9dc3a252-0950-4618-8e6d-bb832dddf5e0 | overcloud-controller-0 | engine | 2020-02-26T20:07:07.000000 | up     |
+| overcloud-controller-0 | heat-engine | 9fce3ed4-0ae4-45a4-8f0b-547c2961929d | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | a02dea2b-aed1-4123-95e6-d0fb50b7932e | overcloud-controller-0 | engine | 2020-02-26T20:07:12.000000 | up     |
+| overcloud-controller-0 | heat-engine | a2ca1cd2-4a0e-492a-813c-1dbc633232ea | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | a2d9f9a0-5859-4061-b0e5-398a2efc04a4 | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | a7c50170-0ff7-48d4-bba8-fd612ea68568 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | a912a44d-d78a-497a-b2ab-9457c837a7a5 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | a9752c40-300b-44c3-b599-b094ee820973 | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | b1603674-0f9a-4d3a-a675-332b72136977 | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | b2692808-9f5f-4c54-bc33-30e713fe3e18 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | b2cd32ff-35c2-42a2-a171-1f8b0e0f189b | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | b2df0298-02ed-42df-8ccf-b6e8b60f969b | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | b5d799e8-45e4-446f-af14-c4cd0a0faf76 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | b783bcf4-cc62-4919-835d-0e01fd2a01fb | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | b7d997bf-1634-4432-b14e-2b1ec6521ccb | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | bc421966-c3ae-4f8f-a15d-d6990b5628cc | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | bca6f1a8-9e7e-4412-8ae8-3179c7c63a98 | overcloud-controller-0 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-0 | heat-engine | bcdb9e56-f990-4708-9a4d-ae7afda8d36c | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | c150e154-7bf7-443b-9936-9c053628f9c6 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | c2b85b39-998b-495f-a8a4-7e51ba20b446 | overcloud-controller-0 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-0 | heat-engine | c8829d1c-ea88-4c7b-9d9d-91b7e157ebbf | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | c8c0e03c-98a3-4de1-9779-296a671637ad | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | c8fc80b5-0d1c-4362-8b9e-ee9907deb43e | overcloud-controller-0 | engine | 2020-02-26T20:07:05.000000 | up     |
+| overcloud-controller-0 | heat-engine | cfc44809-fc90-4c58-97d2-4a592e62b78c | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | d09213c4-ea0c-42ce-8200-a40e99e37a0a | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | d33d0309-9954-4b5a-8df1-1db29f0a741d | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | d4ea6a8e-1d98-4906-a4b4-a681124d8637 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | d60f02c2-c764-4f5b-9982-c31394a9ae44 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | d7236c2b-c3a0-4ae3-b970-32b08bc68413 | overcloud-controller-0 | engine | 2020-02-26T20:07:09.000000 | up     |
+| overcloud-controller-0 | heat-engine | d7631289-dee4-4168-8e1f-7a16bfea1f4f | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | d917d00b-3b7f-4fd5-96c3-e0a270d38398 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | da7016a8-b2f3-4371-94c6-43f4a4b76f39 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | def9b3c4-859a-4295-b01b-2f8d4434b7f1 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | e0d8ee8e-500b-4e50-a7ce-2bef1d171146 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | e15484d9-1fdf-4eb7-988b-ecd0902b9abf | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | e1e8911d-0d6c-40a1-995b-2cd30dafc8c2 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | e27931d7-c73f-488a-b424-5707a3759b8f | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | e2fd68a1-47c0-4ad7-8b56-3c795acf92a9 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | e4e5a418-cbc7-4e93-a0fe-e66e28e4498b | overcloud-controller-0 | engine | 2020-02-26T20:07:00.000000 | up     |
+| overcloud-controller-0 | heat-engine | e66abb71-b685-4c0d-8481-ae726d42982f | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | e854978b-45ab-484a-bc33-dc5062f76ac0 | overcloud-controller-0 | engine | 2020-02-26T20:07:10.000000 | up     |
+| overcloud-controller-0 | heat-engine | e99674e2-3fd9-4c4b-846c-9fd9c5ee67bb | overcloud-controller-0 | engine | 2020-02-26T20:07:07.000000 | up     |
+| overcloud-controller-0 | heat-engine | ec714415-2aad-4232-8551-6b0101a5e004 | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-0 | heat-engine | eea836a2-a04f-41fb-80ec-c83bbab262f0 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | eecf3baf-60ba-448d-ae4a-ec7485938f14 | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | f077d5a4-6adc-4386-82a7-e1fe86bcc379 | overcloud-controller-0 | engine | 2020-02-26T20:07:03.000000 | up     |
+| overcloud-controller-0 | heat-engine | f14c8163-c6c2-4028-8256-8bb0a2b40202 | overcloud-controller-0 | engine | 2020-02-26T20:07:01.000000 | up     |
+| overcloud-controller-0 | heat-engine | f1e343b8-1a1e-40fe-ac14-063876d297b2 | overcloud-controller-0 | engine | 2020-02-26T20:07:02.000000 | up     |
+| overcloud-controller-0 | heat-engine | f56da8ba-a1ea-4cde-8764-8eda2a361c7e | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | fc17c21e-4f2d-4e74-ba55-8ca1ea30ae0d | overcloud-controller-0 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-0 | heat-engine | fc66ff71-f896-4354-b519-a7a9e809c9e4 | overcloud-controller-0 | engine | 2020-02-26T20:07:04.000000 | up     |
+| overcloud-controller-0 | heat-engine | fd74931f-d0b4-4897-a917-8cc9d3d8a5e6 | overcloud-controller-0 | engine | 2020-02-26T20:07:06.000000 | up     |
+| overcloud-controller-0 | heat-engine | fe4d95fb-db03-4462-a4a3-601f771c6f1e | overcloud-controller-0 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-1 | heat-engine | 0026a9ac-c790-4e63-8510-e53ccc32f49f | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | 00d4ad10-de03-4ea3-9a06-7c84b7ec4d05 | overcloud-controller-1 | engine | 2020-02-26T20:07:37.000000 | up     |
+| overcloud-controller-1 | heat-engine | 01aacf37-f373-4fcb-894f-98e4fc09bd42 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 06c2e0be-bae7-4256-a2c8-76c644fb31d4 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 096b40e3-0ebd-4de5-984c-50086573f65f | overcloud-controller-1 | engine | 2020-02-26T20:07:37.000000 | up     |
+| overcloud-controller-1 | heat-engine | 0be9c268-ac66-47f1-9f69-95fdb7265af6 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 0cb42741-0555-4b50-be2a-9d72e7365cd7 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 0e35e36a-6eb4-4453-a07d-e345f636484b | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 10da96e2-8f18-4a7c-88ef-44d6f3e810c3 | overcloud-controller-1 | engine | 2020-02-26T20:07:30.000000 | up     |
+| overcloud-controller-1 | heat-engine | 143e77cd-31e7-4569-ab81-dd72c0a7ba0c | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 191c7e6d-e6b1-4ea9-ba4b-a47a2fec0fa1 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 1c551555-9ed9-431d-b75e-5bceb5f210d6 | overcloud-controller-1 | engine | 2020-02-26T20:07:42.000000 | up     |
+| overcloud-controller-1 | heat-engine | 1c58bd8d-2931-4439-990b-960bdb13e2db | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 1c84b36d-4f35-44ad-bb73-69f44abee614 | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | 1d22ee6e-e867-4e36-8c39-1e8101a68a8c | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 1f3414bf-b3da-435b-8cda-f20553df26bc | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | 20bf72b4-356c-4fe9-822d-92d11f3152ba | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 20c910aa-e1f8-4fe9-bfef-66ff3bc547a5 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 20f7441a-5ba6-4d36-9e4b-d95c7217966c | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 22133191-e989-4962-9655-4387f8e4fab8 | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | 23179166-29fe-4a7b-ac95-12b6416b059d | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 235b854a-8b07-4612-8dd7-1e75273b60a4 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 235d81b4-85fd-4014-8a8a-58244ef9c5ab | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 2404c64b-f5f6-433f-a921-21c1adcd5acc | overcloud-controller-1 | engine | 2020-02-26T20:07:38.000000 | up     |
+| overcloud-controller-1 | heat-engine | 29f37223-b947-4e87-b147-669d3a86da88 | overcloud-controller-1 | engine | 2020-02-26T20:07:41.000000 | up     |
+| overcloud-controller-1 | heat-engine | 30416f3f-b959-4c37-b92e-44ed6fab510f | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 3346dae9-c430-42e7-b709-df016769e868 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 33ca7f37-cb21-48af-bc67-be2558b05d57 | overcloud-controller-1 | engine | 2020-02-26T20:07:30.000000 | up     |
+| overcloud-controller-1 | heat-engine | 34296470-2da8-428e-b21d-6376b78f4362 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 353816ed-aa76-4104-9594-3c971e9fe7ec | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 393287b4-c2ff-43cf-aa65-c2dba7c68b88 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 3ac07e69-2be2-46e8-9cfe-837de95fc8c2 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 3d619d72-ad3f-42c3-91a4-e8e9483c06af | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | 3e541be9-b93e-4977-a5f1-66eaeb25582c | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 400fe76c-0b7e-40c8-963e-e2f0ac24e804 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | 40401707-f032-4b28-aa0d-7b7f7e8dfaff | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 4358f973-a41d-4a43-8f1c-24f10e1678bc | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | 438cc3e0-b1e0-4d2f-9713-450b46ba7a99 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 459a1f78-d4eb-4053-b372-1b7bb0a3da16 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 45adf548-095c-4431-a078-c7c68d19ab70 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 45fe3334-6666-4905-95da-f03778287043 | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | 470995f5-fd63-439c-96c4-895d334b4192 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 4949ab48-8f66-4ddb-987e-55ac02b20965 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 4a6c6c62-495a-4136-87c0-ea4af82ace72 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 4d587548-2088-46b1-9d29-531c58fe8fb9 | overcloud-controller-1 | engine | 2020-02-26T20:07:38.000000 | up     |
+| overcloud-controller-1 | heat-engine | 5062c232-373a-4bc2-b647-d3e09db09ec1 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 520bae3a-e400-4978-9bd6-c3ecbcc26a61 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 551765d6-7ad9-45f0-83ff-363921f916a4 | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 554f0634-ec97-40d9-981c-cd996db6060c | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | 584647b9-8967-4eda-90d7-382cd6384733 | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | 5b428d1e-a9b9-46f9-9392-f6032ff5f110 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 5fa68ec4-4024-490e-88d6-4e7cf22347f9 | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | 5fc311dc-f0c8-4d7c-a819-c9e82392ac95 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 5ff2dfed-792d-4870-a27e-02a497e1c50f | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 61b40438-073d-441b-ae02-7a58fc056412 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 64354d52-3967-4571-a539-57f54c9c77ee | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | 67a34ad4-2814-40c4-bebd-909ea3c7b96c | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 684fc09b-cd40-4527-be09-be0ea5b54e20 | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6a42070b-12e2-40b8-9044-7daa5c55805b | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6a96d89e-5960-4d4c-87a7-2afa7af4c998 | overcloud-controller-1 | engine | 2020-02-26T20:07:30.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6ace6769-881b-4330-a027-843f795f409f | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6b7521d6-59ea-453c-a0cb-acc223daf992 | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6d561de9-a09b-4196-81a0-9a9d0d864e92 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 6e72cc58-fff4-44aa-a084-0e9cf4b47bb5 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 6e7dca17-0d5e-46db-b59f-04031f75e56b | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 6f57b37a-f010-41f2-a580-a153b247152a | overcloud-controller-1 | engine | 2020-02-26T20:07:38.000000 | up     |
+| overcloud-controller-1 | heat-engine | 71ea7392-e29b-4576-826f-b69c47bc5e88 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 72845e61-81fb-4717-9b3d-770567b566c4 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 728fa2f0-1320-4cba-b85f-7a0ed798a58b | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 739dce5c-8aa4-4586-9425-cc154acad47c | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 78d05f6b-1251-4fc6-b35a-e9038ccc68ef | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 7a819cab-27ef-4384-ae28-a4a995878c2b | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 7bab0db1-daa7-45d9-8edb-af2cdaa83f4c | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | 7d30507b-64c9-439d-bc73-717ace3f8358 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 7e844791-4be9-4564-b83f-de5ce99f2e8c | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 7ef94c00-867f-4f77-82b7-d78461dd1fb6 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 83618e84-dfec-4fa9-9ff5-07e018771dba | overcloud-controller-1 | engine | 2020-02-26T20:07:40.000000 | up     |
+| overcloud-controller-1 | heat-engine | 8482e534-0eef-45f6-9760-6c84c2cb520e | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 8874b4e7-cdaa-42ef-a23c-9c8b89312986 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 8934ab3d-2de8-42c9-b89f-4c3d6a03fff8 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 8a92fb2f-c332-4d85-8408-40daae76c7d8 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | 8f3fb86e-ec2f-428f-8a05-d2f0303a4123 | overcloud-controller-1 | engine | 2020-02-26T20:07:41.000000 | up     |
+| overcloud-controller-1 | heat-engine | 8f8fc413-f229-4cd1-8ffe-ce55b18a0a59 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9053a359-22f2-4322-962b-c3b716ecd324 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 90df93b0-d397-4668-ad76-e3af0853012a | overcloud-controller-1 | engine | 2020-02-26T20:07:37.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9372e08a-e04f-4f24-950f-39245800a143 | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | 946c1cc6-36c1-4b67-a1e7-cb826d1af40b | overcloud-controller-1 | engine | 2020-02-26T20:07:43.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9521f723-8bd2-48f7-859b-fdefae204e9d | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9615a172-ad82-4ab4-b3ed-e5cfadca95a9 | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | 999ec162-e4c9-4bba-b94a-f251fffa6514 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | 9a275d68-df3f-4834-902d-ac7f8e0f34d4 | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9a97e58b-cef4-4b5a-9837-ab82f4a0dacf | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 9b32c8a8-f5b7-44cd-8150-5d0704bf29ad | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | 9e3c3c9e-d5f3-48de-b02d-b0a0ce202ac9 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | 9f191194-19e2-4bb1-b2be-68797a22b6eb | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | a2d9fe87-21c7-4223-b90b-989c135ed35a | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | a39a1259-157f-4c0f-8ce2-38c2fa639102 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | a4cbff9b-0f56-40dc-8a5f-52a91df1a5b4 | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | a4f1723d-0f9d-4f8c-aaea-4590196051e7 | overcloud-controller-1 | engine | 2020-02-26T20:07:40.000000 | up     |
+| overcloud-controller-1 | heat-engine | a628a3f8-900b-48aa-b265-17a167bd6c7c | overcloud-controller-1 | engine | 2020-02-26T20:07:34.000000 | up     |
+| overcloud-controller-1 | heat-engine | a8e44059-18c1-4d10-9f7c-71d57b2f566e | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | aa6d0950-5c6d-48fe-b34f-6c644443780d | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | ac18eba5-0a4f-4023-b552-462c5f4957c0 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | ac223131-e23e-47bd-bf97-913800a8b7e5 | overcloud-controller-1 | engine | 2020-02-26T20:07:43.000000 | up     |
+| overcloud-controller-1 | heat-engine | ad701842-11b6-4479-8a0f-298801951259 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | ae02e938-5634-46ba-8e78-e902cf3cedcf | overcloud-controller-1 | engine | 2020-02-26T20:07:40.000000 | up     |
+| overcloud-controller-1 | heat-engine | ae0e1844-d7e2-4f60-a16d-8c5e38ed2dc0 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | b0c4bb26-627b-4844-be40-10fa729b432f | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | b25c8a19-7ea8-45b7-87df-152d599df6b4 | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | b2824c45-799a-4546-8b13-b5ec56cbeb92 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | b28af5aa-2585-4021-af91-570808097db2 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | b8f70fcb-aa40-4f0a-b44a-4b01bda92bea | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | c24c75ce-aa87-414a-b0bb-85cded4dbfe7 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | c318c9b1-68b5-4f51-897d-9fe49e03adc9 | overcloud-controller-1 | engine | 2020-02-26T20:07:36.000000 | up     |
+| overcloud-controller-1 | heat-engine | c98910e4-f204-4d85-9b1b-bd991e5d4fd5 | overcloud-controller-1 | engine | 2020-02-26T20:07:30.000000 | up     |
+| overcloud-controller-1 | heat-engine | cd6adf39-78b2-41aa-b4cd-9cbde154bfd7 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | cea3d4d5-cc69-421e-83b0-77e836b339f4 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | d3e5fa42-60d1-4ea6-97d2-a01551f82d23 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | d48ce05d-30c6-4c6d-83a6-1b982bd244ea | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | d49c8e25-d1ab-45e3-a153-0bcb4da6a51c | overcloud-controller-1 | engine | 2020-02-26T20:07:30.000000 | up     |
+| overcloud-controller-1 | heat-engine | d547c7ce-d13a-497c-ba90-18f5750a4e12 | overcloud-controller-1 | engine | 2020-02-26T20:07:35.000000 | up     |
+| overcloud-controller-1 | heat-engine | d66c6dd6-901c-40d3-8183-d201e2767a84 | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | d7597112-ad39-4030-a3b7-0f3e8207cdd3 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | d858a1a3-43de-4fd6-a3d3-22c0bd1c5e6d | overcloud-controller-1 | engine | 2020-02-26T20:07:35.000000 | up     |
+| overcloud-controller-1 | heat-engine | db4d0d5a-9197-47a5-b917-75fa8d9b4c7c | overcloud-controller-1 | engine | 2020-02-26T20:07:33.000000 | up     |
+| overcloud-controller-1 | heat-engine | ddf12a9d-3b80-477b-96ea-a11979e53225 | overcloud-controller-1 | engine | 2020-02-26T20:07:40.000000 | up     |
+| overcloud-controller-1 | heat-engine | e0f76bc7-adf0-4f2c-9e58-758e00f885c9 | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | e2b37413-3a18-48e8-98ad-bc0c8518ab9e | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | e37032ca-fcb8-403e-86a2-711db3b1e216 | overcloud-controller-1 | engine | 2020-02-26T20:07:35.000000 | up     |
+| overcloud-controller-1 | heat-engine | e456363f-fab6-403a-bcbe-12671798148f | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | e82492dd-51d0-4ac9-8c34-ea581b08125e | overcloud-controller-1 | engine | 2020-02-26T20:07:29.000000 | up     |
+| overcloud-controller-1 | heat-engine | ea34c3d6-e73b-49ff-85b0-a63a7b0b76d8 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | eadd09c0-57d2-416f-a9f2-f7df72ba761e | overcloud-controller-1 | engine | 2020-02-26T20:07:37.000000 | up     |
+| overcloud-controller-1 | heat-engine | ec33c06d-8158-4c9f-b3ba-46aa3d221fd8 | overcloud-controller-1 | engine | 2020-02-26T20:07:31.000000 | up     |
+| overcloud-controller-1 | heat-engine | ee1165b1-f446-437c-a9ef-64f3d11a7248 | overcloud-controller-1 | engine | 2020-02-26T20:07:35.000000 | up     |
+| overcloud-controller-1 | heat-engine | f083b4d1-aa1c-4e84-b468-0b50e1b802e8 | overcloud-controller-1 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-1 | heat-engine | f61facd6-5625-4f97-8f09-0fbeec10715e | overcloud-controller-1 | engine | 2020-02-26T20:07:35.000000 | up     |
+| overcloud-controller-1 | heat-engine | f7054ada-a34a-46e7-8fa4-445b83f7e3c7 | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-1 | heat-engine | fb491961-c607-47b1-aa4f-1b2a8a34489c | overcloud-controller-1 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-1 | heat-engine | ffe5cb9d-f0e7-4314-8077-dc7d2aa6789f | overcloud-controller-1 | engine | 2020-02-26T20:07:32.000000 | up     |
+| overcloud-controller-2 | heat-engine | 0048a95b-4e7e-4307-bbde-5627855cd9ef | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 00fb5aad-c395-4d20-a7dd-83878c4bc811 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 04043987-b831-4a5e-a43f-d2a555567e95 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 05a6038c-268c-4953-85c0-299c686745f9 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | 05e51901-99ba-4aa0-ba2f-196333526382 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 08151485-eb9d-4e26-880c-92e662bfa3d2 | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 090a21c6-4a79-444a-b957-e6a1e20b3bdf | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 09f4e9c5-41a7-48b5-9e74-f93e8e93b432 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 0c4c64b9-6900-4dee-9c35-a4ccb18d0510 | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 0e0d14bc-2c6a-4728-a685-c79e2fd5ac9c | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 0f4d174d-2816-40bc-8d83-3fe5d628478b | overcloud-controller-2 | engine | 2020-02-26T20:07:22.000000 | up     |
+| overcloud-controller-2 | heat-engine | 0f5ff872-1ff3-4672-846d-816b4a8704e4 | overcloud-controller-2 | engine | 2020-02-26T20:07:25.000000 | up     |
+| overcloud-controller-2 | heat-engine | 0fb8cdd2-6c15-4704-9692-e23a1970416e | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 0feed5da-072a-436c-88c4-5502b5a1903a | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 106932bb-ef80-4938-b301-b1030c87b81d | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 10a44fbd-6778-4982-be77-386f9bdc53f4 | overcloud-controller-2 | engine | 2020-02-26T20:07:22.000000 | up     |
+| overcloud-controller-2 | heat-engine | 10f5b52e-1e91-47ad-9280-a881b053dcf9 | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 12133eb2-5efb-40c3-8c7f-a9f929914fd1 | overcloud-controller-2 | engine | 2020-02-26T20:07:22.000000 | up     |
+| overcloud-controller-2 | heat-engine | 12da86e1-6704-4be8-971e-9118a1599a09 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 130f10ce-9084-47e2-8734-5779f3a6b8c8 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 13f74f9a-008a-4783-894e-7957e61245b6 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 147b95ff-a4fa-4fc0-9ff1-f3f455c9a33a | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 16503d25-f45b-40e0-8ef9-91d7193d07d7 | overcloud-controller-2 | engine | 2020-02-26T20:07:16.000000 | up     |
+| overcloud-controller-2 | heat-engine | 16512ef2-4658-4e11-a390-cb43e5f4a7a2 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 19851ab4-2cd4-4a7d-9fb1-5ccac8806eda | overcloud-controller-2 | engine | 2020-02-26T20:07:20.000000 | up     |
+| overcloud-controller-2 | heat-engine | 19cc257c-0182-48d0-a7ff-3561a5efad0d | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 1a32c8f7-ea27-49cc-a652-2929760b8f9e | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 1e205917-dbd8-48b6-8648-3b70c90a5566 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 1f2ef279-08d3-40b0-9a90-6136a7cf1910 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 1fcfa02e-9cb3-4fd3-a07c-d9eccc39338c | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 2249844e-0d4a-42a8-b270-70e8cff3c524 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 286e535d-00e9-482e-ac17-0d9d249f9ae6 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 29adc81b-9665-4826-be2f-adb64d849ca4 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 29c45b08-c4bd-41b0-aba2-b2fa04a7584d | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 2d00439b-8960-47db-bdd2-0da1e7b49717 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | 2dbd4a21-4f1a-499a-b04d-ba254aca8a25 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 2e138cd1-8576-4ebb-a1f2-24d2d2338755 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 2e7fa7f1-f5a0-4278-b28e-dd6d454004bc | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 2e80dfb7-1e69-470c-81fe-7348c1530d59 | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 2ed32a6f-5931-4ed7-b1a9-7e181a64c716 | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | 2edecb67-7386-4a77-ad80-83eed69b81c4 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 318e8072-f8a1-40bb-a7fe-5f6abf39c2c6 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 35b72d80-4fc7-4d30-b2bf-38a8049cbc41 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 373a5d46-3dd0-4273-bb6c-e218e2e0f6d3 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 401833bd-d12e-4e90-af29-8a55f1d8327a | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 46975fd3-861c-464e-bc01-46e59a14e08b | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 4875764b-fc2e-4ab5-aa15-25f831e86d60 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | 4e423531-1e3c-4803-a5d8-fd0a435012e1 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 500c444a-eec3-4634-b23f-f92025a9be3e | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 51a07f9f-ef81-424e-a560-165791f1e538 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 57e740cb-0711-4357-8c0c-7554af2b28c7 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 586d7e7b-1ae6-4814-bec7-9a624615d2c7 | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 587b4b4f-ae33-479b-8e2a-7c48a90c4c4e | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 59c7a05d-4c17-4345-b900-0047b801b29c | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 5cebe331-5db1-4584-8b5f-bad3861a9182 | overcloud-controller-2 | engine | 2020-02-26T20:07:22.000000 | up     |
+| overcloud-controller-2 | heat-engine | 5e902152-8f00-490d-963a-ca40c697cd28 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 6004437c-1b11-43b8-9e0a-655ae1f567bd | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 683b3aed-f4ee-4e47-b8f4-a76f3abafdb2 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 6a0d39d5-df17-4e6b-9be6-2096a47e8449 | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 6c1d30c0-747a-4147-bd96-4521b98942da | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 6fd84d16-d1c7-48c2-85f8-4d77685806f9 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 70845ef6-a192-473e-a9b6-2257b628a734 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | 70d5514a-76b1-484c-90c6-ebc63865af65 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 70e7ead9-dbfb-4b7a-b840-dfe5a724d0d7 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 76364801-9438-4654-a06a-daa4f026c75e | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | 78a84ea3-9ea5-4b34-8d27-bf094570f971 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 7ae440b6-3cd5-46de-9a38-3f9330a9a25c | overcloud-controller-2 | engine | 2020-02-26T20:07:14.000000 | up     |
+| overcloud-controller-2 | heat-engine | 7b18804c-6ddc-4db5-863f-075f0baeb7e2 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 7c63a222-5fef-428d-8ad3-81d042933c44 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 7f29bf9b-ec83-495d-bb89-27b189fffe26 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 7f5a87a3-40c3-489e-b819-d2f96f3c0b69 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 84bbff46-44ff-4fe9-bc92-84c4a7f04757 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 862f40e3-0cd4-4ec4-9a00-a1f20d471004 | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 86cbc0f4-49da-4cec-b958-f28bba2573dd | overcloud-controller-2 | engine | 2020-02-26T20:07:22.000000 | up     |
+| overcloud-controller-2 | heat-engine | 86ff3a4d-c117-4cea-9dd3-4681c0af86d4 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 876efd34-3884-4540-85e6-7b2893008cb0 | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | 88c787e1-1423-4ba2-b468-6f7782565590 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | 8a8cc932-da04-48a1-bfdc-3b55a713fc5a | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 8f35ce8d-2310-4652-a5f3-cc2804866339 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | 9441065d-bb8b-40ff-b6a9-bc5e2afe29da | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 958fe050-aa70-4cf7-ab23-163019119808 | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | 96fecf37-3835-4b16-8db1-e2c294cdd238 | overcloud-controller-2 | engine | 2020-02-26T20:07:21.000000 | up     |
+| overcloud-controller-2 | heat-engine | 973cb8bb-d609-474e-aefd-017a1d37bca2 | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | 97879ce0-828e-46ce-85ba-b0e1a540d3f0 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 991ace50-e7c3-4457-8ff4-d087614cf5bf | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | 9a73690b-05cc-4117-9c29-92e6d96620f7 | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | 9a91d255-b821-41e6-beb2-f11ac0d21400 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | 9b524643-2437-424a-8a43-5d210bf022aa | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | 9d3229dd-a93e-4ca5-a28e-258ba3bc1bbb | overcloud-controller-2 | engine | 2020-02-26T20:07:16.000000 | up     |
+| overcloud-controller-2 | heat-engine | 9dd57f9b-86b6-4606-8aef-348a3a8eb6c5 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | 9fe6156d-69f6-4792-9755-d826f04141fa | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | a0e1a285-36fb-435b-a8a2-aced43ca1d03 | overcloud-controller-2 | engine | 2020-02-26T20:07:18.000000 | up     |
+| overcloud-controller-2 | heat-engine | a2dc6537-bb78-48ae-ba21-4edb8b74e917 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | a3507cb5-80f2-48d7-9ea7-5a8395b961f2 | overcloud-controller-2 | engine | 2020-02-26T20:07:14.000000 | up     |
+| overcloud-controller-2 | heat-engine | a39bda18-97e6-4ccd-988b-17fda097f5dc | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | a4812fef-3897-462a-90be-e250a57b31a5 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | a555f435-7bee-460c-8d55-a28fcdf60acf | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | a9ea47c6-7a6c-41ba-b55c-8135367d77b9 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | aa9d557f-e6a9-4db3-bb6d-f4348bf2a787 | overcloud-controller-2 | engine | 2020-02-26T20:07:14.000000 | up     |
+| overcloud-controller-2 | heat-engine | adc88b64-1559-4fd9-8a64-0d9d0eb18c82 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | ae3dc947-697e-45ff-a00d-46fbb54ed071 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | af59a314-62dd-4fc8-a204-e35187846522 | overcloud-controller-2 | engine | 2020-02-26T20:07:17.000000 | up     |
+| overcloud-controller-2 | heat-engine | af98529a-f434-4077-92da-274347f16be5 | overcloud-controller-2 | engine | 2020-02-26T20:07:24.000000 | up     |
+| overcloud-controller-2 | heat-engine | b03f18c0-34f7-47a7-b99b-3ce1d13bcdcf | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | b1423917-d75e-4131-98a1-ea701077fb7e | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | b1fedbab-2eda-43d1-a2ed-61c0200c0ed3 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | b59e3614-660b-40ef-b5a2-c41fc7a9de53 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | b5a84489-4294-4c2f-90d0-e868ad6ee480 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | b82d789d-f43f-46ad-8bab-1e02a879c9a1 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | b96d1e68-628d-4bd0-9eac-0b6a21fe5db9 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | baa9d37d-b4d0-4e90-b352-ee77b63c7a6a | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | bb655c04-f3ac-4fd5-b0d0-806d392e2f92 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | bc7c2dca-4b52-40c1-b915-c1bdf1ce969b | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | bd755eb4-ee09-46e5-a268-6599bbaf9e9e | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | bdba2c14-9299-4925-b726-536b89833be1 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | bdc2e6dd-bdd7-44d1-a7e8-94ecbdee2097 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | bfaa57ec-211e-44e0-b851-a4d402423f85 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | c49401fa-a746-4df0-bd6a-281db7a43fde | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | c5bf9fcf-22e9-4739-9137-666436adac95 | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | c68568ee-1035-41cb-ae09-2eed12855e32 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | c6c3899f-276a-4bc4-bd46-6c8c5e575859 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | cae5ac1c-1719-4068-8307-afa205790282 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | cf63e7a4-c086-4b50-aa3d-ffb653f5a48b | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | cfbffc65-bc07-4223-aa6d-fa8dfbd79a30 | overcloud-controller-2 | engine | 2020-02-26T20:07:21.000000 | up     |
+| overcloud-controller-2 | heat-engine | cfcdd827-1565-4ecb-b792-c273ffab5430 | overcloud-controller-2 | engine | 2020-02-26T20:07:19.000000 | up     |
+| overcloud-controller-2 | heat-engine | d41ae78f-ad4e-4359-8fb9-1b8295db17cd | overcloud-controller-2 | engine | 2020-02-26T20:07:15.000000 | up     |
+| overcloud-controller-2 | heat-engine | d45d85f4-e8c6-4e6b-986f-e9c95a4d91b4 | overcloud-controller-2 | engine | 2020-02-13T02:56:40.000000 | down   |
+| overcloud-controller-2 | heat-engine | d4a18a36-1eb4-4357-8260-2bfa2610ee91 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | d4ccbfc3-0c9f-4f2f-8e55-64ea76b47ec7 | overcloud-controller-2 | engine | 2020-02-26T20:07:25.000000 | up     |
+| overcloud-controller-2 | heat-engine | d60fe389-294d-4e33-ba92-5260a4130b63 | overcloud-controller-2 | engine | 2020-02-26T20:07:14.000000 | up     |
+| overcloud-controller-2 | heat-engine | dcaafeb2-4a52-4b7d-882c-3e079d0a4be1 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | dcfc1d1d-5025-472d-8d60-34997ab83d89 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | de460041-3693-469a-9edc-4dcdc2d9e9ed | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
+| overcloud-controller-2 | heat-engine | de9b11a8-1f78-45f3-989c-553e09a5ccc3 | overcloud-controller-2 | engine | 2020-02-26T20:07:20.000000 | up     |
+| overcloud-controller-2 | heat-engine | e797ed89-a757-4a8b-bc7d-be71b9d0cbb9 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | e7ab4266-4f62-481d-bf1b-3ec07e2c0b90 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | e9cda9fb-5fb0-4362-b029-7f7090265e4c | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | eb902624-b99c-44a7-b12b-dd177d0ea3a7 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | edc1dfb0-5fff-40c9-b3db-4e8f25582f04 | overcloud-controller-2 | engine | 2020-02-26T20:07:16.000000 | up     |
+| overcloud-controller-2 | heat-engine | ef39b4b4-579f-4b17-bfb3-29e5c262a45e | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | f022b18b-be12-4bd4-8ae7-8aa72f9d2492 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | f51f1c31-47ab-458d-a276-724c297519b6 | overcloud-controller-2 | engine | 2020-02-13T02:56:41.000000 | down   |
+| overcloud-controller-2 | heat-engine | f90c03b7-2e4b-48ab-892e-ab4d59951ea0 | overcloud-controller-2 | engine | 2020-02-13T02:56:42.000000 | down   |
+| overcloud-controller-2 | heat-engine | fbc3f32c-533c-4714-bdad-1d37dc63b364 | overcloud-controller-2 | engine | 2020-02-26T20:07:13.000000 | up     |
++------------------------+-------------+--------------------------------------+------------------------+--------+----------------------------+--------+
+
+ salt * cmd.run free -h
+Storage-3:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         22G         78G        5.9M        149G        226G
+    Swap:            0B          0B          0B
+OvsCompute-0:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        100G         11G        8.2M        139G        149G
+    Swap:            0B          0B          0B
+Storage-4:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         38G         66G        5.9M        146G        210G
+    Swap:            0B          0B          0B
+Storage-5:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         61G         50G        5.9M        140G        188G
+    Swap:            0B          0B          0B
+TripleNicSriov1GPerformanceCompute-3:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        209G         37G         12M        5.2G         40G
+    Swap:            0B          0B          0B
+TripleNicSriovCMMPerformanceCompute-6:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        198G         31G         12M         21G         50G
+    Swap:            0B          0B          0B
+TripleNicSriov1GPerformanceCompute-2:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        208G         37G         12M        5.1G         41G
+    Swap:            0B          0B          0B
+OvsCompute-8:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        169G         75G        8.8M        7.5G         77G
+    Swap:            0B          0B          0B
+OvsCompute-5:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        160G         84G        8.4M        6.3G         87G
+    Swap:            0B          0B          0B
+OvsCompute-9:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        129G        112G        8.8M        9.0G        120G
+    Swap:            0B          0B          0B
+OvsCompute-2:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        178G         68G        8.6M        3.9G         71G
+    Swap:            0B          0B          0B
+Controller-2:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         87G         79G         46M         84G        162G
+    Swap:            0B          0B          0B
+OvsCompute-4:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        196G         50G        8.9M        4.0G         53G
+    Swap:            0B          0B          0B
+Controller-0:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         97G         76G         47M         77G        152G
+    Swap:            0B          0B          0B
+OvsCompute-3:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        194G         53G        8.9M        4.1G         56G
+    Swap:            0B          0B          0B
+Controller-1:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G         98G         40G         67M        112G        151G
+    Swap:            0B          0B          0B
+OvsCompute-6:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        179G         67G        8.9M        4.0G         70G
+    Swap:            0B          0B          0B
+OvsCompute-7:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        154G         92G        9.0M        4.1G         95G
+    Swap:            0B          0B          0B
+TripleNicSriov1GPerformanceCompute-0:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        205G         41G         12M        5.1G         44G
+    Swap:            0B          0B          0B
+TripleNicSriov1GPerformanceCompute-1:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        209G         36G         12M        5.2G         40G
+    Swap:            0B          0B          0B
+TripleNicSriovPerformanceCompute-1:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        131G        114G         13M        5.3G        117G
+    Swap:            0B          0B          0B
+TripleNicSriovCMMPerformanceCompute-5:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        198G         33G         12M         18G         50G
+    Swap:            0B          0B          0B
+TripleNicSriovPerformanceCompute-0:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        131G        115G         13M        5.2G        118G
+    Swap:            0B          0B          0B
+TripleNicSriovCMMPerformanceCompute-4:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        199G         31G         12M         21G         50G
+    Swap:            0B          0B          0B
+TripleNicSriovCMMPerformanceCompute-7:
+                  total        used        free      shared  buff/cache   available
+    Mem:           220G        176G         30G         12M         13G         41G
+    Swap:            0B          0B          0B
+OvsCompute-1:
+                  total        used        free      shared  buff/cache   available
+    Mem:           251G        157G         90G        8.8M        4.0G         92G
+    Swap:            0B          0B          0B
+
+ salt * cmd.run mpstat
+Storage-3:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-storage-3)      02/26/20        _x86_64_        (48 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    1.90    0.00    0.81    0.02    0.00    0.12    0.00    0.00    0.00   97.14
+Storage-5:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-storage-5)      02/26/20        _x86_64_        (48 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    1.83    0.00    0.78    0.02    0.00    0.11    0.00    0.00    0.00   97.25
+Storage-4:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-storage-4)      02/26/20        _x86_64_        (48 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    1.93    0.00    0.81    0.02    0.00    0.12    0.00    0.00    0.00   97.12
+TripleNicSriov1GPerformanceCompute-2:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriov1gperformancecompute-2)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.40    0.00    0.93    0.00    0.00    0.10    0.00   50.89    0.00   47.68
+OvsCompute-0:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-0)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.12    0.00    0.93    0.00    0.00    0.09    0.00    3.06    0.00   95.80
+Controller-1:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-controller-1)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    3.14    0.00    1.18    0.01    0.00    0.18    0.00    0.00    0.00   95.50
+OvsCompute-5:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-5)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.11    0.00    0.63    0.00    0.00    0.10    0.00    2.30    0.00   96.86
+OvsCompute-9:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-9)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.37    0.00    1.21    0.00    0.00    0.17    0.00    4.06    0.00   94.18
+TripleNicSriov1GPerformanceCompute-0:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriov1gperformancecompute-0)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.41    0.00    0.92    0.00    0.00    0.10    0.00   29.53    0.00   69.05
+OvsCompute-2:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-2)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.13    0.00    0.71    0.00    0.00    0.09    0.00    2.35    0.00   96.73
+Controller-0:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-controller-0)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    3.27    0.00    1.05    0.01    0.00    0.16    0.00    0.00    0.00   95.52
+OvsCompute-6:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-6)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.10    0.00    0.78    0.00    0.00    0.12    0.00    6.17    0.00   92.83
+OvsCompute-8:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-8)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.35    0.00    2.94    0.00    0.00    0.09    0.00    4.48    0.00   92.15
+Controller-2:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-controller-2)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    3.87    0.00    1.01    0.01    0.00    0.13    0.00    0.00    0.00   94.98
+TripleNicSriov1GPerformanceCompute-1:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriov1gperformancecompute-1)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.43    0.00    2.01    0.00    0.00    0.11    0.00   38.92    0.00   58.53
+OvsCompute-4:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-4)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.11    0.00    0.52    0.00    0.00    0.10    0.00    4.41    0.00   94.86
+OvsCompute-3:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-3)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.14    0.00    1.67    0.00    0.00    0.10    0.00    2.62    0.00   95.46
+OvsCompute-7:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-7)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.16    0.00    1.07    0.00    0.00    0.17    0.00    2.85    0.00   95.76
+TripleNicSriovCMMPerformanceCompute-6:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovcmmperformancecompute-6)  02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.41    0.00    7.71    0.00    0.00    0.09    0.00   22.04    0.00   69.75
+TripleNicSriov1GPerformanceCompute-3:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriov1gperformancecompute-3)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.41    0.00    1.11    0.00    0.00    0.10    0.00   41.32    0.00   57.06
+TripleNicSriovCMMPerformanceCompute-7:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovcmmperformancecompute-7)  02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.41    0.00    8.08    0.00    0.00    0.10    0.00   18.64    0.00   72.77
+TripleNicSriovPerformanceCompute-0:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovperformancecompute-0)     02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.45    0.00   14.82    0.00    0.00    0.15    0.00   13.29    0.00   71.29
+TripleNicSriovCMMPerformanceCompute-4:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovcmmperformancecompute-4)  02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.44    0.00    6.11    0.00    0.00    0.08    0.00    3.93    0.00   89.44
+TripleNicSriovCMMPerformanceCompute-5:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovcmmperformancecompute-5)  02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.44    0.00    7.27    0.00    0.00    0.08    0.00    8.27    0.00   83.94
+TripleNicSriovPerformanceCompute-1:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-triplenicsriovperformancecompute-1)     02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:56     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:56     all    0.46    0.00   15.68    0.00    0.00    0.15    0.00   13.32    0.00   70.39
+OvsCompute-1:
+    Linux 3.10.0-693.11.6.el7.x86_64 (overcloud-ovscompute-1)   02/26/20        _x86_64_        (72 CPU)
+    
+    15:07:58     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+    15:07:58     all    0.11    0.00    1.07    0.00    0.00    0.18    0.00    3.19    0.00   95.45
+
+ neutron agent-list
++-----------------------------+--------------------+-----------------------------+-------------------+-------+----------------+---------------------------+
+| id                          | agent_type         | host                        | availability_zone | alive | admin_state_up | binary                    |
++-----------------------------+--------------------+-----------------------------+-------------------+-------+----------------+---------------------------+
+| 0aa6f281-0365-4794-991e-    | DHCP agent         | overcloud-                  | nova              | :-)   | True           | neutron-dhcp-agent        |
+| 1608db244087                |                    | controller-2.localdomain    |                   |       |                |                           |
+| 0ef5528e-                   | NIC Switch agent   | overcloud-triplenicsriovper |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| cab2-41f6-b2b2-5db5b0a6f62c |                    | formancecompute-0.localdoma |                   |       |                |                           |
+|                             |                    | in                          |                   |       |                |                           |
+| 123619c1-1025-4d64-a309-622 | Open vSwitch agent | overcloud-triplenicsriovper |                   | :-)   | True           | neutron-openvswitch-agent |
+| c56076ffe                   |                    | formancecompute-0.localdoma |                   |       |                |                           |
+|                             |                    | in                          |                   |       |                |                           |
+| 1244e4a2-c092-4c0d-b94f-    | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 90c35a5cb972                |                    | ovscompute-7.localdomain    |                   |       |                |                           |
+| 13e94483-10d4-41b4-b77d-    | NIC Switch agent   | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| 5711ee6e1711                |                    | erformancecompute-1.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 22ec28e3-03b0-4a3f-         | Open vSwitch agent | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-openvswitch-agent |
+| 96a0-b01049d5d67f           |                    | erformancecompute-0.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 25213d04-9ecf-4140-b45d-    | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 20b9b9b5843b                |                    | ovscompute-8.localdomain    |                   |       |                |                           |
+| 2ab9195c-6751-4b28-94a7-62d | NIC Switch agent   | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| e02351962                   |                    | performancecompute-5.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 3fd3de33-2d36-4790-8872-9a6 | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| af9f36131                   |                    | ovscompute-9.localdomain    |                   |       |                |                           |
+| 40939c56-760b-              | Open vSwitch agent | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-openvswitch-agent |
+| 44a2-8f38-02b097b7a461      |                    | erformancecompute-2.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 49041a61-c17c-4d0a-         | Metadata agent     | overcloud-                  |                   | :-)   | True           | neutron-metadata-agent    |
+| bf36-a63a26dc777a           |                    | controller-1.localdomain    |                   |       |                |                           |
+| 4e197a5a-6553-493f-a8cd-    | NIC Switch agent   | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| c46f73420d9d                |                    | erformancecompute-3.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 565d92f5-3db0-4756-a8d2-517 | Open vSwitch agent | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-openvswitch-agent |
+| 68c15385a                   |                    | performancecompute-6.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 573ce1e5-a534-4c93-9118-d82 | Open vSwitch agent | overcloud-triplenicsriovper |                   | :-)   | True           | neutron-openvswitch-agent |
+| 3ccae01ed                   |                    | formancecompute-1.localdoma |                   |       |                |                           |
+|                             |                    | in                          |                   |       |                |                           |
+| 6511b428-ea7e-48d5-9d1a-    | NIC Switch agent   | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| d60b069ba81f                |                    | erformancecompute-0.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 682e006b-e780-467f-ba7f-    | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 54197c50770a                |                    | ovscompute-4.localdomain    |                   |       |                |                           |
+| 6fc27fc8-4157-4001-b20d-    | NIC Switch agent   | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| fe2458f9cc26                |                    | performancecompute-7.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 73d782c8-63c1-44fd-afaf-    | L3 agent           | overcloud-                  | nova              | :-)   | True           | neutron-l3-agent          |
+| 99d16b918829                |                    | controller-2.localdomain    |                   |       |                |                           |
+| 7acc0aeb-84ca-              | NIC Switch agent   | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| 426a-a294-63812bec77c9      |                    | performancecompute-4.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 7e1c0c77-73c4-49ac-         | Open vSwitch agent | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-openvswitch-agent |
+| 8dc0-6e2c02e90483           |                    | erformancecompute-3.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| 7f03b36c-4862-4b02-9ee3-5c6 | DHCP agent         | overcloud-                  | nova              | :-)   | True           | neutron-dhcp-agent        |
+| 59b771ff0                   |                    | controller-0.localdomain    |                   |       |                |                           |
+| 7fb105ab-                   | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| e3e8-41ba-8938-adf55500c5c8 |                    | controller-2.localdomain    |                   |       |                |                           |
+| 827b1620-afb9-49fe-b564-2d1 | L3 agent           | overcloud-                  | nova              | :-)   | True           | neutron-l3-agent          |
+| 2bb233430                   |                    | controller-0.localdomain    |                   |       |                |                           |
+| 896976e9-b2de-4812-a19c-    | DHCP agent         | overcloud-                  | nova              | :-)   | True           | neutron-dhcp-agent        |
+| 3dc6efa26bf1                |                    | controller-1.localdomain    |                   |       |                |                           |
+| 94cae406-1f2d-4537-b246-be6 | Open vSwitch agent | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-openvswitch-agent |
+| 0a68b4072                   |                    | performancecompute-5.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 96992963-12a5-48e2-a51f-    | NIC Switch agent   | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| 25938626361b                |                    | performancecompute-6.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| 9cada55a-83de-4aaf-         | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| a7f4-34b56cde205f           |                    | ovscompute-3.localdomain    |                   |       |                |                           |
+| 9fb1a7a8-5177-4d78-81a0-abd | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 6f4f8877f                   |                    | ovscompute-6.localdomain    |                   |       |                |                           |
+| a1767937-0040-4b4f-b490-3e1 | NIC Switch agent   | overcloud-triplenicsriovper |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| fee06867a                   |                    | formancecompute-1.localdoma |                   |       |                |                           |
+|                             |                    | in                          |                   |       |                |                           |
+| b02a8fc2-4353-49f5-a38e-    | Metadata agent     | overcloud-                  |                   | :-)   | True           | neutron-metadata-agent    |
+| 194940c557d8                |                    | controller-2.localdomain    |                   |       |                |                           |
+| bc33b8ac-                   | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| dee1-4a2a-b830-a298a99287d4 |                    | controller-0.localdomain    |                   |       |                |                           |
+| bd74e0c0-f788-49ea-         | Open vSwitch agent | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-openvswitch-agent |
+| a5e1-12dc180672e9           |                    | erformancecompute-1.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
+| c366358f-f7a0-497e-934f-    | Open vSwitch agent | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-openvswitch-agent |
+| 04d2cb27278c                |                    | performancecompute-7.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| cf535d1f-                   | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| fb10-4451-a653-2aacf9b87c00 |                    | ovscompute-5.localdomain    |                   |       |                |                           |
+| d0c55678-36c5-45c3-8967-b84 | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 16f8d9754                   |                    | ovscompute-1.localdomain    |                   |       |                |                           |
+| d0f20358-b524-4e6e-9788-a09 | L3 agent           | overcloud-                  | nova              | :-)   | True           | neutron-l3-agent          |
+| 9fbffe581                   |                    | controller-1.localdomain    |                   |       |                |                           |
+| d109f498-0d3d-              | Open vSwitch agent | overcloud-triplenicsriovcmm |                   | :-)   | True           | neutron-openvswitch-agent |
+| 4bf7-a539-c51c5471215f      |                    | performancecompute-4.locald |                   |       |                |                           |
+|                             |                    | omain                       |                   |       |                |                           |
+| d952e2bf-6a8b-40bf-         | Metadata agent     | overcloud-                  |                   | :-)   | True           | neutron-metadata-agent    |
+| 8d29-cbb1f79620f4           |                    | controller-0.localdomain    |                   |       |                |                           |
+| e1cb6f87-eaae-4952-aa7e-    | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 72cd33621eb5                |                    | controller-1.localdomain    |                   |       |                |                           |
+| e21501e8-e53f-423a-         | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| 80f9-26f506363e08           |                    | ovscompute-0.localdomain    |                   |       |                |                           |
+| e5f47c44-61fc-463e-         | Open vSwitch agent | overcloud-                  |                   | :-)   | True           | neutron-openvswitch-agent |
+| bf03-8a683df07b00           |                    | ovscompute-2.localdomain    |                   |       |                |                           |
+| f9fe31a2-286a-4d18-973d-    | NIC Switch agent   | overcloud-triplenicsriov1gp |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| 9d3201c3ab81                |                    | erformancecompute-2.localdo |                   |       |                |                           |
+|                             |                    | main                        |                   |       |                |                           |
++-----------------------------+--------------------+-----------------------------+-------------------+-------+----------------+---------------------------+
+
+ sudo systemctl status ntpd
+â— ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Wed 2020-02-12 22:01:53 EST; 1 weeks 6 days ago
+  Process: 772 ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 813 (ntpd)
+   Memory: 24.0K
+   CGroup: /system.slice/ntpd.service
+           â”œâ”€813 /usr/sbin/ntpd -u ntp:ntp -g
+           â””â”€828 /usr/sbin/ntpd -u ntp:ntp -g
+
+Feb 26 13:52:34 undercloud ntpd_intres[828]: host name not found: 2.rhel.pool.ntp.org
+Feb 26 13:52:34 undercloud ntpd_intres[828]: host name not found: 3.rhel.pool.ntp.org
+Feb 26 14:08:37 undercloud ntpd_intres[828]: host name not found: 2.rhel.pool.ntp.org
+Feb 26 14:08:37 undercloud ntpd_intres[828]: host name not found: 3.rhel.pool.ntp.org
+Feb 26 14:24:39 undercloud ntpd_intres[828]: host name not found: 2.rhel.pool.ntp.org
+Feb 26 14:24:39 undercloud ntpd_intres[828]: host name not found: 3.rhel.pool.ntp.org
+Feb 26 14:40:42 undercloud ntpd_intres[828]: host name not found: 2.rhel.pool.ntp.org
+Feb 26 14:40:42 undercloud ntpd_intres[828]: host name not found: 3.rhel.pool.ntp.org
+Feb 26 14:56:45 undercloud ntpd_intres[828]: host name not found: 2.rhel.pool.ntp.org
+Feb 26 14:56:45 undercloud ntpd_intres[828]: host name not found: 3.rhel.pool.ntp.org
+
+ salt Controller* cmd.run sudo pcs status
+Controller-1:
+    Cluster name: tripleo_cluster
+    Stack: corosync
+    Current DC: overcloud-controller-1 (version 1.1.16-12.el7_4.5-94ff4df) - partition with quorum
+    Last updated: Wed Feb 26 15:08:01 2020
+    Last change: Wed Feb 12 22:09:37 2020 by root via crm_resource on overcloud-controller-1
+    
+    3 nodes configured
+    21 resources configured
+    
+    Online: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+    
+    Full list of resources:
+    
+     ip-10.127.102.12   (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-172.31.255.3    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.20    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     Clone Set: haproxy-clone [haproxy]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: galera-master [galera]
+         Masters: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     ip-192.168.1.13    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     ip-192.168.4.18    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.12    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     Clone Set: rabbitmq-clone [rabbitmq]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: redis-master [redis]
+         Masters: [ overcloud-controller-0 ]
+         Slaves: [ overcloud-controller-1 overcloud-controller-2 ]
+     openstack-cinder-volume    (systemd:openstack-cinder-volume):      Started overcloud-controller-2
+     zabbix_server      (systemd:zabbix-server):        Started overcloud-controller-1
+     Resource Group: vitrage
+         cbis-vitrage-graph     (ocf::heartbeat:docker):        Started overcloud-controller-0
+    
+    Daemon Status:
+      corosync: active/enabled
+      pacemaker: active/enabled
+      pcsd: active/enabled
+Controller-0:
+    Cluster name: tripleo_cluster
+    Stack: corosync
+    Current DC: overcloud-controller-1 (version 1.1.16-12.el7_4.5-94ff4df) - partition with quorum
+    Last updated: Wed Feb 26 15:08:01 2020
+    Last change: Wed Feb 12 22:09:37 2020 by root via crm_resource on overcloud-controller-1
+    
+    3 nodes configured
+    21 resources configured
+    
+    Online: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+    
+    Full list of resources:
+    
+     ip-10.127.102.12   (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-172.31.255.3    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.20    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     Clone Set: haproxy-clone [haproxy]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: galera-master [galera]
+         Masters: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     ip-192.168.1.13    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     ip-192.168.4.18    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.12    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     Clone Set: rabbitmq-clone [rabbitmq]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: redis-master [redis]
+         Masters: [ overcloud-controller-0 ]
+         Slaves: [ overcloud-controller-1 overcloud-controller-2 ]
+     openstack-cinder-volume    (systemd:openstack-cinder-volume):      Started overcloud-controller-2
+     zabbix_server      (systemd:zabbix-server):        Started overcloud-controller-1
+     Resource Group: vitrage
+         cbis-vitrage-graph     (ocf::heartbeat:docker):        Started overcloud-controller-0
+    
+    Daemon Status:
+      corosync: active/enabled
+      pacemaker: active/enabled
+      pcsd: active/enabled
+Controller-2:
+    Cluster name: tripleo_cluster
+    Stack: corosync
+    Current DC: overcloud-controller-1 (version 1.1.16-12.el7_4.5-94ff4df) - partition with quorum
+    Last updated: Wed Feb 26 15:08:01 2020
+    Last change: Wed Feb 12 22:09:37 2020 by root via crm_resource on overcloud-controller-1
+    
+    3 nodes configured
+    21 resources configured
+    
+    Online: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+    
+    Full list of resources:
+    
+     ip-10.127.102.12   (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-172.31.255.3    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.20    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     Clone Set: haproxy-clone [haproxy]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: galera-master [galera]
+         Masters: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     ip-192.168.1.13    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     ip-192.168.4.18    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-1
+     ip-192.168.2.12    (ocf::heartbeat:IPaddr2):       Started overcloud-controller-0
+     Clone Set: rabbitmq-clone [rabbitmq]
+         Started: [ overcloud-controller-0 overcloud-controller-1 overcloud-controller-2 ]
+     Master/Slave Set: redis-master [redis]
+         Masters: [ overcloud-controller-0 ]
+         Slaves: [ overcloud-controller-1 overcloud-controller-2 ]
+     openstack-cinder-volume    (systemd:openstack-cinder-volume):      Started overcloud-controller-2
+     zabbix_server      (systemd:zabbix-server):        Started overcloud-controller-1
+     Resource Group: vitrage
+         cbis-vitrage-graph     (ocf::heartbeat:docker):        Started overcloud-controller-0
+    
+    Daemon Status:
+      corosync: active/enabled
+      pacemaker: active/enabled
+      pcsd: active/enabled
+
+ salt '*' cmd.run 'sudo systemctl --failed | grep -i fail'
+Storage-3:
+    * srpd.service loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-0:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+Storage-5:
+    * srpd.service loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+Storage-4:
+    * srpd.service loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-5:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+Controller-1:
+    * openstack-ceilometer-api.service loaded failed failed OpenStack ceilometer API service
+    * openstack-cinder-volume.service  loaded failed failed OpenStack Cinder Volume Server
+    * srpd.service                     loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-9:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * rc-local.service                   loaded failed failed /etc/rc.d/rc.local Compatibility
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+Controller-0:
+    * srpd.service loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-2:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovCMMPerformanceCompute-5:
+    * dhcp-interface@br-all.service      loaded failed failed DHCP interface br/all
+    * dhcp-interface@br-ex.service       loaded failed failed DHCP interface br/ex
+    * dhcp-interface@br-vxlan.service    loaded failed failed DHCP interface br/vxlan
+    * dhcp-interface@eno1.service        loaded failed failed DHCP interface eno1
+    * dhcp-interface@eno2.service        loaded failed failed DHCP interface eno2
+    * dhcp-interface@ovs-system.service  loaded failed failed DHCP interface ovs/system
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-8:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-4:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-3:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-6:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+Controller-2:
+    * srpd.service loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-7:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriov1GPerformanceCompute-2:
+    * plymouth-read-write.service loaded failed failed Tell Plymouth To Write Out Runtime Data
+    * srpd.service                loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovPerformanceCompute-1:
+    * plymouth-read-write.service loaded failed failed Tell Plymouth To Write Out Runtime Data
+    * srpd.service                loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriov1GPerformanceCompute-3:
+    * plymouth-read-write.service loaded failed failed Tell Plymouth To Write Out Runtime Data
+    * srpd.service                loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriov1GPerformanceCompute-0:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * rc-local.service                   loaded failed failed /etc/rc.d/rc.local Compatibility
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovCMMPerformanceCompute-7:
+    * dhcp-interface@br-all.service      loaded failed failed DHCP interface br/all
+    * dhcp-interface@br-ex.service       loaded failed failed DHCP interface br/ex
+    * dhcp-interface@br-vxlan.service    loaded failed failed DHCP interface br/vxlan
+    * dhcp-interface@eno1.service        loaded failed failed DHCP interface eno1
+    * dhcp-interface@eno2.service        loaded failed failed DHCP interface eno2
+    * dhcp-interface@ovs-system.service  loaded failed failed DHCP interface ovs/system
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovCMMPerformanceCompute-6:
+    * dhcp-interface@br-all.service      loaded failed failed DHCP interface br/all
+    * dhcp-interface@br-ex.service       loaded failed failed DHCP interface br/ex
+    * dhcp-interface@br-vxlan.service    loaded failed failed DHCP interface br/vxlan
+    * dhcp-interface@eno1.service        loaded failed failed DHCP interface eno1
+    * dhcp-interface@eno2.service        loaded failed failed DHCP interface eno2
+    * dhcp-interface@ovs-system.service  loaded failed failed DHCP interface ovs/system
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovCMMPerformanceCompute-4:
+    * dhcp-interface@br-all.service      loaded failed failed DHCP interface br/all
+    * dhcp-interface@br-ex.service       loaded failed failed DHCP interface br/ex
+    * dhcp-interface@br-vxlan.service    loaded failed failed DHCP interface br/vxlan
+    * dhcp-interface@eno1.service        loaded failed failed DHCP interface eno1
+    * dhcp-interface@eno2.service        loaded failed failed DHCP interface eno2
+    * dhcp-interface@ovs-system.service  loaded failed failed DHCP interface ovs/system
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriov1GPerformanceCompute-1:
+    * plymouth-read-write.service loaded failed failed Tell Plymouth To Write Out Runtime Data
+    * srpd.service                loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+TripleNicSriovPerformanceCompute-0:
+    * plymouth-read-write.service loaded failed failed Tell Plymouth To Write Out Runtime Data
+    * srpd.service                loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+OvsCompute-1:
+    * NetworkManager-wait-online.service loaded failed failed Network Manager Wait Online
+    * srpd.service                       loaded failed failed LSB: Starts and stops the InfiniBand SRP client service
+
+ Enter ssh -i <ssh key> cbam@<cbam VIP>
+ssh -i cbamkey cbam@10.127.106.245
+
+ systemctl status cbam-reconfigure.service
+â— cbam-reconfigure.service
+   Loaded: loaded (/usr/lib/systemd/system/cbam-reconfigure.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+
+ DNS Verification
+Server:         127.0.0.1
+Address:        127.0.0.1#53
+
+** server can't find google.com: REFUSED
+
+
+ NTP Verification
+/bin/bash: line 8: ntpq: command not found
+
+ systemctl status cbam-operability-distribution.service
+â— cbam-operability-distribution.service - CBAM operability-distribution service
+   Loaded: loaded (/usr/lib/systemd/system/cbam-operability-distribution.service; enabled; vendor preset: disabled)
+   Active: active (exited) since Fri 2020-01-31 17:20:15 EST; 3 weeks 4 days ago
+ Main PID: 2775 (code=exited, status=0/SUCCESS)
+    Tasks: 0
+   Memory: 0B
+   CGroup: /system.slice/cbam-operability-distribution.service
+
+ sudo systemctl status cbam-component-catalog.service
+â— cbam-component-catalog.service - CBAM Catalog
+   Loaded: loaded (/usr/lib/systemd/system/cbam-component-catalog.service; enabled; vendor preset: disabled)
+  Drop-In: /etc/systemd/system/cbam-component-catalog.service.d
+           â””â”€01-cps.conf, 50-CPUQuota.conf, 50-MemoryLimit.conf, 50-TasksMax.conf
+   Active: active (running) since Mon 2020-02-24 10:41:52 EST; 2 days ago
+ Main PID: 21032 (startJetty.sh)
+    Tasks: 36 (limit: 2000)
+   Memory: 1.2G (limit: 5.0G)
+   CGroup: /system.slice/cbam-component-catalog.service
+           â”œâ”€21032 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/catalog/catalog-warpath.properties
+           â”œâ”€22526 java -Dhint=catalog -Dmq=rabbitmq -XX:+UseG1GC -Xmx2048m -XX:MaxPermSize=192m -XX:+CMSClassUnloadingEnabled -XX:MinHeapFreeRatio=15 -XX:MaxHeapFreeRatio=30 -Dlogback.debug=true -Dlogback.statusListenerClass=ch.qos.logback.core.status.OnConsoleStatusListener -Dlogback.configurationFile=/opt/nokia/cbam/etc/catalog/logback-default.xml -Dcom.sun.management.jmxremote.port=9083 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false com.nsn.cam.jetty.CamJettyLauncher /opt/nokia/cbam/etc/catalog/catalog-warpath.properties
+           â”œâ”€22528 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/catalog/catalog-warpath.properties
+           â””â”€22529 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/catalog/catalog-warpath.properties
+
+Feb 26 10:52:54 TorontoLab-cbam-single.cbaminternal catalog[31229]: bind => [nokia_hss_18.5]
+Feb 26 11:52:02 TorontoLab-cbam-single.cbaminternal catalog[17321]: bind => [iperf_cpu]
+Feb 26 12:02:56 TorontoLab-cbam-single.cbaminternal catalog[25831]: bind => [nokia_hss_18.5]
+Feb 26 12:07:54 TorontoLab-cbam-single.cbaminternal catalog[11306]: [EL Fine]: sql: 2020-02-26 12:07:54.844--ServerSession(1389055824)--Connection(1575455052)--SELECT id, created_at, DESCRIPTION, last_update, name, product_name, PROVIDER, sw_version, version, vim_type, vnfd_id, stored_package_id FROM vnf_package
+Feb 26 12:16:03 TorontoLab-cbam-single.cbaminternal catalog[8027]: [EL Fine]: sql: 2020-02-26 12:16:03.027--ServerSession(1389055824)--Connection(289138276)--SELECT id, created_at, DESCRIPTION, last_update, name, product_name, PROVIDER, sw_version, version, vim_type, vnfd_id, stored_package_id FROM vnf_package WHERE (vnfd_id = ?)
+Feb 26 12:26:33 TorontoLab-cbam-single.cbaminternal catalog[13451]: bind => [iperf_cpu]
+Feb 26 12:30:33 TorontoLab-cbam-single.cbaminternal catalog[28410]: bind => [iperf_cpu]
+Feb 26 12:31:03 TorontoLab-cbam-single.cbaminternal catalog[30060]: bind => [iperf_cpu]
+Feb 26 12:32:57 TorontoLab-cbam-single.cbaminternal catalog[5293]: bind => [nokia_hss_18.5]
+Feb 26 13:42:57 TorontoLab-cbam-single.cbaminternal catalog[31287]: bind => [nokia_hss_18.5]
+
+ sudo systemctl status cbam-component-alma.service
+â— cbam-component-alma.service - CBAM alarm-manager service
+   Loaded: loaded (/usr/lib/systemd/system/cbam-component-alma.service; enabled; vendor preset: disabled)
+  Drop-In: /etc/systemd/system/cbam-component-alma.service.d
+           â””â”€01-cps.conf, 10-almafix.conf, 50-CPUQuota.conf, 50-MemoryLimit.conf, 50-TasksMax.conf
+   Active: active (running) since Mon 2020-02-24 10:41:57 EST; 2 days ago
+  Process: 20929 ExecStartPre=/usr/bin/sleep 5 (code=exited, status=0/SUCCESS)
+ Main PID: 22716 (startJetty.sh)
+    Tasks: 47 (limit: 2000)
+   Memory: 305.5M (limit: 1.0G)
+   CGroup: /system.slice/cbam-component-alma.service
+           â”œâ”€22716 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/alma/alma-warpath.properties
+           â”œâ”€22805 java -Dhint=alma -Dmq=rabbitmq -Xmx2048m -Xmx384m -XX:MaxPermSize=192m -XX:+CMSClassUnloadingEnabled -XX:MinHeapFreeRatio=15 -XX:MaxHeapFreeRatio=30 -Dlogback.debug=true -Dlogback.statusListenerClass=ch.qos.logback.core.status.OnConsoleStatusListener -Dlogback.configurationFile=/opt/nokia/cbam/etc/alma/logback-default.xml -Dcom.sun.management.jmxremote.port=9082 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false com.nsn.cam.jetty.CamJettyLauncher /opt/nokia/cbam/etc/alma/alma-warpath.properties
+           â”œâ”€22807 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/alma/alma-warpath.properties
+           â””â”€22808 /bin/bash /opt/jetty-server/bin/startJetty.sh /opt/nokia/cbam/etc/alma/alma-warpath.properties
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+ sudo systemctl status cbam-scheduler.service
+â— cbam-scheduler.service - CBAM Automatic Workflow Scheduler and Trigger Service
+   Loaded: loaded (/usr/lib/systemd/system/cbam-scheduler.service; enabled; vendor preset: disabled)
+  Drop-In: /etc/systemd/system/cbam-scheduler.service.d
+           â””â”€01-cps.conf, 50-CPUQuota.conf, 50-MemoryLimit.conf, 50-TasksMax.conf
+   Active: active (running) since Mon 2020-02-24 10:41:52 EST; 2 days ago
+ Main PID: 20954 (python)
+    Tasks: 15 (limit: 2000)
+   Memory: 122.3M (limit: 500.0M)
+   CGroup: /system.slice/cbam-scheduler.service
+           â””â”€20954 /opt/nokia/cbam-venv/bin/python /opt/nokia/cbam-venv/bin/start_scheduler
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+

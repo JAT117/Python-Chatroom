@@ -1,0 +1,5 @@
+
+'df -h'
+\"sudo systemctl --failed | grep -i fail\"
+"free -h"
+ping -c 4 localhost
